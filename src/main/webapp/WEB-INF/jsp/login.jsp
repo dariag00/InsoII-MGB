@@ -20,7 +20,7 @@
 		<div class="row align-items-center">
 			<div class="col-md-4 offset-md-4 align-items-center">
 
-				<form class="form" action="" method="POST"
+				<form class="form" method="POST"
 				style="width:350px">
 				
 				<div class="card-body">
@@ -28,22 +28,27 @@
 						<h1 class="card-title text-center">MGB</h1>
 						<h5 class="text-center">Makros General Bank</h5>
 				</div>
-					<!--<div class="alert alert-danger invisible" role="alert" value="${ErrorMessage}" id="LoginAlert">${ErrorMessage}</div>
-					<div class="alert invisible" role="alert" value="${Message}" id="LoginAlert">${Message}</div>-->
+				
+					<c:if test="${not empty errorMessage}">
+						<div class="alert alert-danger" role="alert">
+	  						${errorMessage}
+						</div>
+					</c:if>
+					
 					<div class="card-body">
 						<div class="input-group mb-3">
   							<div class="input-group-prepend">
 						    	<span class="input-group-text" id="inputGroup-sizing-default"><img src="https://img.icons8.com/ios/24/000000/new-post.png"></span>
 						  	</div>
-  							<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Email">
+  							<input name="email" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Email">
 						</div>
 						<div class="input-group mb-3">
   							<div class="input-group-prepend">
 						    	<span class="input-group-text" id="inputGroup-sizing-default"><img src="https://img.icons8.com/ios/24/000000/password1.png"></span>
 						  	</div>
-  							<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Password">
+  							<input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Password">
 						</div>
-						<button type="button" class="btn btn-primary btn-lg btn-block">Log In</button>
+						<input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In">
 						
 						<hr>
 						<a class="btn btn-primary btn-lg btn-block" href="#" role="button">Sign In</a>

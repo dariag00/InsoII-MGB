@@ -1,5 +1,7 @@
 package com.unileon.insoII.mgb.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,15 @@ public class LoginService {
 	UserRepository userRepository;
 	
 	public boolean logIn(String username, String password) {
-		User user = userRepository.findById(1).get();
-		if(user.getPassword().equals(password))
+		List<User> userList = userRepository.findByEmail(username);
+		User user = null;
+		if(!userList.isEmpty())
+			user = userList.get(0);
+		if(user!= null && user.getPassword().equals(password))
 			return true;
 		else
 			return false;
+		
 	}
 
 }

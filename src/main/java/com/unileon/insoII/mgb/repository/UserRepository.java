@@ -8,6 +8,6 @@ import com.unileon.insoII.mgb.model.User;
 
 public interface UserRepository extends CrudRepository<User, Integer>  {
 	
-	 //List<User> findByDni(String dni);
+	 List<User> findByEmail(String email);
 	 
 }
