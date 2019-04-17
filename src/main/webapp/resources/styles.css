@@ -1,0 +1,10 @@
+html, body {
+    height: 100%;
+}
+
+.container {
+	height: 70%;
+}
+.row{
+	 height: 100%;
+}
