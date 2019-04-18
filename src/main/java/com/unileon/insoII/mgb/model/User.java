@@ -1,15 +1,16 @@
 package com.unileon.insoII.mgb.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -21,6 +22,10 @@ public class User {
 	private String password;
 	@Column(nullable = false)
 	private String email;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<UserAccount> userAccounts = new HashSet<>();
+	
 	
 	public int getId() {
 		return id;

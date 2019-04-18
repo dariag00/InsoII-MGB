@@ -23,7 +23,6 @@ public class LoginService {
 			return true;
 		else
 			return false;
-		
 	}
 
 }
