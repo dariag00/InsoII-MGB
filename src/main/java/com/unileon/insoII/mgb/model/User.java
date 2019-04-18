@@ -2,6 +2,7 @@ package com.unileon.insoII.mgb.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,9 +23,16 @@ public class User implements Serializable{
 	private String password;
 	@Column(nullable = false)
 	private String email;
+	private Date birthdate;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserAccount> userAccounts = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Card> cards = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private Set<Notification> notifications = new HashSet<>();
 	
 	
 	public int getId() {
@@ -62,6 +70,30 @@ public class User implements Serializable{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Date getBirthdate() {
+		return birthdate;
+	}
+	public void setBirthdate(Date birthdate) {
+		this.birthdate = birthdate;
+	}
+	public Set<UserAccount> getUserAccounts() {
+		return userAccounts;
+	}
+	public void setUserAccounts(Set<UserAccount> userAccounts) {
+		this.userAccounts = userAccounts;
+	}
+	public Set<Card> getCards() {
+		return cards;
+	}
+	public void setCards(Set<Card> cards) {
+		this.cards = cards;
+	}
+	public Set<Notification> getNotifications() {
+		return notifications;
+	}
+	public void setNotifications(Set<Notification> notifications) {
+		this.notifications = notifications;
 	}
 	
 }
