@@ -29,7 +29,7 @@ public class Card implements Serializable{
 	private Account account;
 	
 	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
-	private Set<Transaction> operations = new HashSet<>();
+	private Set<Operation> operations = new HashSet<>();
 	
 	
 	public int getNumber() {
@@ -55,6 +55,12 @@ public class Card implements Serializable{
 	}
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+	public Set<Operation> getOperations() {
+		return operations;
+	}
+	public void setOperations(Set<Operation> operations) {
+		this.operations = operations;
 	}
 
 }
