@@ -22,3 +22,27 @@ hr.loginSeparator{
 	border: 1px solid #ced4da;
   	border-radius: 1px;
 }
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.container-create-account{
+	width:70%;
+}
+.jumbotron{
+	background-color: #007bff;
+}
+
+.background-blue{
+	background-color: #007bff;
+}
+
+.img-container{
+	max-height: 250px; 
+	overflow: hidden;
+}
