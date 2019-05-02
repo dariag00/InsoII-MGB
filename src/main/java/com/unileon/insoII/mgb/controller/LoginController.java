@@ -34,5 +34,11 @@ public class LoginController {
 			return "login";
 		}
 	}
+	
+	@RequestMapping(value={"/create_account"}, method = RequestMethod.GET)
+	public String showCreateAccountPage(ModelMap model) {
+		return "create_account";
+	}
+	
 
 }
