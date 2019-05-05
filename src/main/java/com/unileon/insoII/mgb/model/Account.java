@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class Account implements Serializable{
 	private int id;
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-	private Set<UserAccount> accountUsers = new HashSet<>();
+	private Set<UserAccount> users = new HashSet<>();
 	
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private Set<Card> cards = new HashSet<>();
@@ -37,11 +38,11 @@ public class Account implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Set<UserAccount> getAccountUsers() {
-		return accountUsers;
+	public Set<UserAccount> getUsers() {
+		return users;
 	}
-	public void setAccountUsers(Set<UserAccount> accountUsers) {
-		this.accountUsers = accountUsers;
+	public void setUsers(Set<UserAccount> accountUsers) {
+		this.users = accountUsers;
 	}
 	public int getCurrency() {
 		return currency;
@@ -79,5 +80,25 @@ public class Account implements Serializable{
 	public void setTransactionsRecieved(Set<Transaction> transactionsRecieved) {
 		this.transactionsRecieved = transactionsRecieved;
 	}
+	
+	public void addUser(User user) {
+		UserAccount userAccount = new UserAccount(user, this);
+		users.add(userAccount);
+	}
+	
+	public void removeUser(User user) {
+        for (Iterator<UserAccount> iterator = users.iterator();
+             iterator.hasNext(); ) {
+        	UserAccount userAccount = iterator.next();
+ 
+            if (userAccount.getAccount().equals(this) &&
+            		userAccount.getUser().equals(user)) {
+                iterator.remove();
+                userAccount.getUser().getAccounts().remove(userAccount);
+                userAccount.setAccount(null);
+                userAccount.setUser(null);
+            }
+        }
+    }
 
 }

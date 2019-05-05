@@ -24,9 +24,12 @@ public class User implements Serializable{
 	@Column(nullable = false)
 	private String email;
 	private Date birthdate;
+	private String address;
+	private String city;
+	private String country;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<UserAccount> userAccounts = new HashSet<>();
+	private Set<UserAccount> accounts = new HashSet<>();
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Card> cards = new HashSet<>();
@@ -77,11 +80,11 @@ public class User implements Serializable{
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
-	public Set<UserAccount> getUserAccounts() {
-		return userAccounts;
+	public Set<UserAccount> getAccounts() {
+		return accounts;
 	}
-	public void setUserAccounts(Set<UserAccount> userAccounts) {
-		this.userAccounts = userAccounts;
+	public void setAccounts(Set<UserAccount> userAccounts) {
+		this.accounts = userAccounts;
 	}
 	public Set<Card> getCards() {
 		return cards;
@@ -94,6 +97,24 @@ public class User implements Serializable{
 	}
 	public void setNotifications(Set<Notification> notifications) {
 		this.notifications = notifications;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 }
