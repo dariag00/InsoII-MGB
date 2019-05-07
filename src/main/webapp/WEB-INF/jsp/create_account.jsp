@@ -14,7 +14,7 @@
 
 
 <body class="background-blue">
-	<div class="jumbotron vertical-center">
+	<div class="jumbotron jumbotronBlue vertical-center">
 		<div class="container text-">
 			<div class="card" id="options-container">
 				<div class="card-body">

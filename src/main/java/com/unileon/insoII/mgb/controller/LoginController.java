@@ -42,9 +42,9 @@ public class LoginController {
 	public String showMainPage(ModelMap model, @RequestParam String email, @RequestParam String password) {
 		boolean isValidUser = loginService.logIn(email, password);
 		if(isValidUser) {
-			return "redirect:welcome";
+			return "redirect:dashboard";
 		}else {
-			model.addAttribute("errorMessage", "The user doesn't exist or the password do not match");
+			model.addAttribute("errorMessage", "The user doesn't exist or passwords do not match");
 			return "login";
 		}
 	}
@@ -61,7 +61,7 @@ public class LoginController {
 		if (!bindingResult.hasErrors()) {
 			if(!userService.createUser(userForm)) {
 				//ERROR
-				return "redirect:login";
+				return "redirect:dashboard";
 			}
 			return "redirect:login";
 		}

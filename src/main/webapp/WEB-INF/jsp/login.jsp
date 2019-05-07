@@ -17,7 +17,7 @@
 	<%@ include file="navbar.jsp" %>
 	<div class="main">
 		<div class="container ">
-			<div class="row align-items-center">
+			<div class="row loginRow align-items-center">
 				<div class="col-md-4 offset-md-4 align-items-center">
 	
 					<form class="form" method="POST"

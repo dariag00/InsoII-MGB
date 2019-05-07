@@ -32,6 +32,8 @@ public class Account implements Serializable{
 	private int currency;
 	private Date creationDate;
 	private double balance;
+	private String iban;
+	
 	public int getId() {
 		return id;
 	}
@@ -84,6 +86,13 @@ public class Account implements Serializable{
 	public void addUser(User user) {
 		UserAccount userAccount = new UserAccount(user, this);
 		users.add(userAccount);
+	}
+	
+	public String getIban() {
+		return iban;
+	}
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
 	
 	public void removeUser(User user) {

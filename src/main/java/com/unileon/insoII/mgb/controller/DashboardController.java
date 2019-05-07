@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DashboardController {
 	
 	@RequestMapping(value= {"/welcome"}, method = RequestMethod.GET)
-	public String showDashboard(ModelMap model) {
+	public String showWelcome(ModelMap model) {
 		return "welcome";
+	}
+	
+	@RequestMapping(value= {"/dashboard"}, method = RequestMethod.GET)
+	public String showDashboard(ModelMap model) {
+		return "dashboard";
 	}
 
 }
