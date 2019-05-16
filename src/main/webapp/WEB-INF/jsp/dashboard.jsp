@@ -55,7 +55,7 @@
 		
 			<div class="row summaryContainer">
 				<div class="col-md-6">
-					<h4>Este es el resumen de su cuenta:</h4>
+					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
 				</div>
 				<div class="col-md-6">
 					<div class="dropdown">
@@ -75,32 +75,9 @@
 					<div class="card shadow-sm" id="accountCointainer">
 						<div class="card-body">
 							<h5 class="card-title text-primary">Your Accounts</h5>
-							<div id="account2">
-								<div class= "row">
-									<div class="col-md-8 cardDataContainer">
-										<h5>IBAN</h5>
-										<p class="text-secondary">Titular: Nombre Apellidos</p>
-									</div>
-									<div class="col-md-4 cardDataContainer">
-										<h3 class="text-secondary">550 EUROS</h3>
-									</div>
-								</div>
-								<small id="accountMore" class="form-text text-muted">Click for more info.</small>
-								<hr>
-							</div>	
-							<div id="account1">
-								<div class= "row">
-									<div class="col-md-8 cardDataContainer">
-										<h5>IBAN</h5>
-										<p class="text-secondary">Titular: Nombre Apellidos</p>
-									</div>
-									<div class="col-md-4 cardDataContainer">
-										<h3 class="text-secondary">550 EUROS</h3>
-									</div>
-								</div>
-								<small id="accountMore" class="form-text text-muted">Click for more info.</small>
-								<hr>
-							</div>		
+							<c:forEach var="account" items="${accounts}">
+								<%@ include file="account.jsp" %>
+							</c:forEach>
 						</div>
 					</div>
 				</div>

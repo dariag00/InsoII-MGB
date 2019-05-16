@@ -26,6 +26,9 @@ public class Transaction {
 	private Date transactionDate;
 	private int type;
 	private double value;
+	private String commentary;
+	private String beneficiary;
+	
 	public int getId() {
 		return id;
 	}
@@ -62,7 +65,38 @@ public class Transaction {
 	public void setValue(double value) {
 		this.value = value;
 	}
+	public String getCommentary() {
+		return commentary;
+	}
+	public void setCommentary(String commentary) {
+		this.commentary = commentary;
+	}
+	public String getBeneficiary() {
+		return beneficiary;
+	}
+	public void setBeneficiary(String beneficiary) {
+		this.beneficiary = beneficiary;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transaction other = (Transaction) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 	
 	
-
 }

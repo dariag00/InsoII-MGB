@@ -1,5 +1,7 @@
 package com.unileon.insoII.mgb.model;
 
+import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "User")
@@ -27,14 +31,17 @@ public class User implements Serializable{
 	private String address;
 	private String city;
 	private String country;
+	@Column(name="firstLogin", columnDefinition="BOOLEAN DEFAULT TRUE")
+	private boolean firstLogin;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<UserAccount> accounts = new HashSet<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Card> cards = new HashSet<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Notification> notifications = new HashSet<>();
 	
 	
@@ -116,5 +123,61 @@ public class User implements Serializable{
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+	public String getFullName() {
+		
+		String[] apellidosArray = this.apellidos.split(" ");
+		String fullName = this.nombre;
+		
+		if(apellidosArray.length>1) {
+			for(int i = 0; i<apellidosArray.length; i++) {
+				fullName.concat(apellidosArray[i]);
+				fullName.concat(" ");
+			}
+		}else {
+			fullName += " " + this.apellidos;
+		}
+		
+		return fullName;
+	}
+	
+	public List<Account> getListOfAccounts(){
+		List<Account> listOfAccounts = new ArrayList<>();
+		for(UserAccount uac: accounts) {
+			listOfAccounts.add(uac.getAccount());
+		}
+		return listOfAccounts;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
+	
+	
+	
 	
 }

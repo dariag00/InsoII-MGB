@@ -123,3 +123,7 @@ margin-top:9%;
 .movement{
 	margin-top:5px;
 }
+#transactionMenu{
+	height:80%;
+	background-color: white;
+}
