@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.unileon.insoII.mgb.utils.Constants;
 import com.unileon.insoII.mgb.utils.Utils;
 
 
@@ -154,11 +155,23 @@ public class Account implements Serializable{
 	
 	public User getAccountOwner() {
 		for(UserAccount uac: users) {
-			if(uac.getRoleId() == 0)
+			if(uac.getRoleId() == Constants.ROLE_ACCOUNT_OWNER)
 				return uac.getUser();
 		}
 		
 		return null;
+	}
+	
+	public List<User> getAssociatedUsers(){
+		
+		List<User> userList = new ArrayList<>();
+		
+		for(UserAccount uac: users) {
+			if(uac.getRoleId() == Constants.ROLE_ACCOUNT_USER)
+				userList.add(uac.getUser());
+		}
+		
+		return userList;
 	}
 	
 	public String getFormattedBalance() {

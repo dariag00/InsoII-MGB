@@ -34,7 +34,7 @@
 						</div>
 						<div class="col-md-6">
 							<h3>Información sobre tu tarjeta</h3>
-							<p>Número de tarjeta: ${card.cardNumber}</p>
+							<p>Número de tarjeta: ${card.getFormattedCardNumber()}</p>
 							<p>CCV: ${card.cvv}</p>
 							<p>Pin Secreto: ${card.secretPin}</p>
 						</div>
