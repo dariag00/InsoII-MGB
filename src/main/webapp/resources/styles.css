@@ -16,6 +16,13 @@ html, body {
 	background-size:cover;
 	height: 96%;
 }
+.welcome{
+	background-image: url("https://newevolutiondesigns.com/images/freebies/city-wallpaper-11.jpg");
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size:cover;
+	height: 96%;
+}
 
 hr.loginSeparator{
 	border: 1px solid #ced4da;

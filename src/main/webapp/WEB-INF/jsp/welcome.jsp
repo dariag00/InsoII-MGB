@@ -13,10 +13,10 @@
 
 
 <body >
-	<%@ include file="navbar.jsp" %>
+	<%@ include file="navbarWelcome.jsp" %>
 	
-	<div class= "main" align="center" id="welcomeContainer" style="background-attachment:fixed" >
-		<div class="row welcomeText" align="center">
+	<div class= "welcome"  id="welcomeContainer"  >
+		<div class="loginRow" align="center">
 			<div>
 					<img src="https://img.icons8.com/ios/150/000000/museum.png" class="rounded mx-auto d-block" alt="logo">
 			</div>
@@ -24,41 +24,31 @@
 				<h1 style="font-size:5vw">Makros General Bank</h1>
 			 	<h2 > Su banco de confianza, y cada día el de más gente</h2> 	
 			</div>
+			
+			
 			<div>
-				<img src="https://img.icons8.com/ios/150/000000/museum.png" class="rounded mx-auto d-block" alt="logo">
-	
-			</div>
-		
-		</div>
-		<div class="container" align="center" display="inline-block">
-			<img src="https://platterivermed.com/wp-content/uploads/2014/12/Happy-Family.jpg"/>
-		</div>
-		<div class="row promotionContainer">
 				<div class="col-md-4">
-					<div class="card shadow-sm">
+					<div class="card text-white bg-dark mb-3 ">
 					 	<div class="card-body">
 					    	<h5 class="card-title">¿Quieres unirte a nosotros?</h5>
-					    	<a href="/create_account" class="btn btn-primary">¡Logéate ahora!</a>
+					    	<a href="/create_account" class="btn btn-secondary">¡Accede al registro!</a>
 					  	</div>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="card shadow-sm">
+					<div class="card text-white bg-dark mb-3">
 						<div class="card-body">
 					    	<h5 class="card-title">Si ya eres socio...</h5>
-					    	<a href="/login" class="btn btn-primary">Sin problema.</a>
-					  	</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-						<div class="card-body">
-					    	<h5 class="card-title">¿Solo estás aquí por los memes?</h5>
-					    	<a href="https://www.reddit.com/r/memes/" target="_blank" class="btn btn-primary">Sin problema.</a>
+					    	<a href="/login" class="btn btn-secondary">Puedes logearte aquí.</a>
 					  	</div>
 					</div>
 				</div>
 			</div>
+			
+		
+		</div>
+		
+		
 	</div>
 	
 
