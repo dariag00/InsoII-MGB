@@ -170,5 +170,17 @@ public class Card implements Serializable{
 			return false;
 		return true;
 	}
+	
+	public String getFormattedCardNumber() {
+	StringBuffer formattedCardNumber = new StringBuffer();
+		
+		for (int i = 0; i < this.cardNumber.length(); i++){
+	        if(i % 4 == 0)
+	        	formattedCardNumber.append(" ");
+	        formattedCardNumber.append(this.cardNumber.charAt(i));
+	    }
+		
+		return formattedCardNumber.toString();
+	}
 
 }

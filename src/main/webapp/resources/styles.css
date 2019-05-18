@@ -127,3 +127,8 @@ margin-top:9%;
 	height:80%;
 	background-color: white;
 }
+
+.accountButton{
+	display: block;
+	margin-bottom: 10px;
+}

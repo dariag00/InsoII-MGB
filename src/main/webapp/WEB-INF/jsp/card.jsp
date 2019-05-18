@@ -4,8 +4,8 @@
 			<img src="https://img.icons8.com/color/48/000000/mastercard-credit-card.png" width="75%">
 		</div>
 		<div class="col-md-9 cardDataContainer">
-			<h5>NUMERO DE LA TARJETA TO LARGO</h5>
-			<p class="text-secondary">Titular: Nombre Apellidos</p>
+			<h5>${card.getFormattedCardNumber()}</h5>
+			<p class="text-secondary">Titular: ${card.getUser().getFullName()}</p>
 		</div>
 	</div>
 	<small id="accountMore" class="form-text text-muted">Click for more info.</small>

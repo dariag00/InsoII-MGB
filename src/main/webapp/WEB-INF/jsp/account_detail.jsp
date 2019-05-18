@@ -17,89 +17,40 @@
 
 	<%@ include file="main_navbar.jsp" %>
 	
-		<div class="container text-" id="dashboardContainer">		
-			<div class="row promotionContainer">
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-					 	<img class="card-img-top" src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Promocion 1</h5>
-					    	<p class="card-text">Texto</p>
-					    	<a href="#" class="btn btn-primary">See more</a>
-					  	</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-						<img class="card-img-top" src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Promocion 2</h5>
-					    	<p class="card-text">Texto</p>
-					    	<a href="#" class="btn btn-primary">See more</a>
-					  	</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-						<img class="card-img-top" src="https://images.unsplash.com/photo-1513885535751-8b9238bd345a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Promocion 3</h5>
-					    	<p class="card-text">Texto.</p>
-					    	<a href="#" class="btn btn-primary">See more</a>
-					  	</div>
-					</div>
-				</div>
-			</div>
-		
-		
+	<div class="container text-" id="dashboardContainer">				
 		
 			<div class="row summaryContainer">
 				<div class="col-md-6">
 					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
 				</div>
-				<div class="col-md-6">
-					<div class="dropdown">
-					  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  	QUIERO
-					  </button>
-					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					    <a class="dropdown-item" href="/newTransfer">Realizar una transferencia</a>
-					    <a class="dropdown-item" href="/newCard">Contratar una tarjeta de crédito</a>
-					  </div>
-					</div>
-				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="card shadow-sm" id="accountCointainer">
 						<div class="card-body">
-							<h5 class="card-title text-primary">Your Accounts</h5>
-							<c:forEach var="account" items="${accounts}">
-								<%@ include file="account.jsp" %>
-							</c:forEach>
+							<div class="row">
+								<div class="col-md-6">
+									<h5 class="card-title text-primary">Your Account</h5>
+									<div class="row">
+										<div class="col-md-3">
+											<img src="https://img.icons8.com/wired/64/000000/money-box.png">
+										</div>
+										<div class="col-md-9">
+											<p>IBAN: </p>
+											<p>Titular: </p>
+											<p>Usuarios Asociados: </p>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<button class="btn btn-primary accountButton" type="button" aria-haspopup="true" aria-expanded="false">Hacer una Transferencia</button>
+									<button class="btn btn-primary accountButton" type="button" aria-haspopup="true" aria-expanded="false">Gestionar Usuarios</button>
+									<button class="btn btn-danger accountButton" type="button" aria-haspopup="true" aria-expanded="false">Dar de baja</button>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="card shadow-sm" id="cardsContainer">
-						<div class="card-body">
-							<h5 class="card-title text-primary">Your Cards</h5>
-							<c:forEach var="card" items="${cards}">
-								<%@ include file="card.jsp" %>
-							</c:forEach>
-						</div>	
-					</div>
-				</div>
-			</div>
-			<div class="row graphicsContainer">
-				<div class="col-md-6">
-					<canvas id="moneyChart">
-					</canvas>
-				</div>
-				<div class="col-md-6">
-					<canvas id="accountsChart">
-					</canvas>
 				</div>
 			</div>
 			
@@ -161,16 +112,12 @@
 				</div>
 			</div>
 			
-		</div>		
+		</div>	
 	<%@ include file="footer.jsp" %>
-
 	
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.2/dist/Chart.bundle.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="<c:url value="/resources/accountChart.js"/>"></script>
-	<script src="<c:url value="/resources/moneyChart.js"/>"></script>
+	
 </body>
-
-</html>
