@@ -32,7 +32,8 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
         </div>
       </li>
     </ul>
-    <a href="/create_account" class="btn btn-info">Registro</a>
+    <a href="/create_account" class="btn btn-info" style="margin-right: 10px">Registro</a>
+    
     <a href="/login" class="btn btn-info">Login</a>
   </div>
 </nav>
