@@ -127,7 +127,7 @@ public class Card implements Serializable{
 		
 		for (int i = 0; i < 3; i++){
 	        int n = rand.nextInt(10) + 0;
-	        cardNumber += Integer.toString(n);
+	        cvv += Integer.toString(n);
 	    }
 		
 		this.cvv = cvv;

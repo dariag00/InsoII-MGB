@@ -22,7 +22,7 @@
 			</div>
 			<div align="center">
 				<h1 style="font-size:5vw">Makros General Bank</h1>
-			 	<h2 > Su banco de confianza, y cada día el de más gente</h2> 	
+			 	<h2 > Su banco de confianza, y cada dï¿½a el de mï¿½s gente</h2> 	
 			</div>
 			
 			
@@ -32,6 +32,7 @@
 					 	<div class="card-body">
 					    	<h5 class="card-title">¿Quieres unirte a nosotros?</h5>
 					    	<a href="/create_account" class="btn btn-secondary">¡Accede al registro!</a>
+
 					  	</div>
 					</div>
 				</div>
@@ -40,9 +41,11 @@
 						<div class="card-body">
 					    	<h5 class="card-title">Si ya eres socio...</h5>
 					    	<a href="/login" class="btn btn-secondary">Puedes logearte aquí.</a>
+
 					  	</div>
 					</div>
 				</div>
+				
 			</div>
 			
 		

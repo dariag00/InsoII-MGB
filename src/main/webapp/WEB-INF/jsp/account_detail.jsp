@@ -37,9 +37,19 @@
 											<img src="https://img.icons8.com/wired/64/000000/money-box.png">
 										</div>
 										<div class="col-md-9">
-											<p>IBAN: </p>
-											<p>Titular: </p>
-											<p>Usuarios Asociados: </p>
+											<p>IBAN: ${account.getFormattedIban()}</p>
+											<p>Titular: ${account.getAccountOwner().nombre}</p>
+											<c:choose>
+												<c:when test = "${!account.getAssociatedUsers().isEmpty()}">
+													<p>Usuarios Asociados: </p>
+													<c:forEach var="associatedUser" items="${account.getAssociatedUsers()}">
+														<p>Nombre: ${associatedUser.getFullName()}</p>
+													</c:forEach>
+												</c:when>
+												<c:otherwise>
+													<p>Esta cuenta no tiene usuarios asociados</p>
+												</c:otherwise>
+												</c:choose>
 										</div>
 									</div>
 								</div>
