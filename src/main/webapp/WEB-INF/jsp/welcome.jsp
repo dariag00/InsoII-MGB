@@ -22,7 +22,7 @@
 			</div>
 			<div align="center">
 				<h1 style="font-size:5vw">Makros General Bank</h1>
-			 	<h2 > Su banco de confianza, y cada dï¿½a el de mï¿½s gente</h2> 	
+			 	<h2 > Su banco de confianza, y cada día el de más gente</h2> 	
 			</div>
 			
 			
