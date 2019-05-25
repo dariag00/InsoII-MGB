@@ -6,11 +6,11 @@
 					<img src="https://img.icons8.com/color/48/000000/money-transfer.png">
 				</div>
 				<div class="col-sm-9 movementContent">
-					<p>CINES QUE DISES LOCO</p>
-					<small>15/05/2019</small>
+					<p>${transaction.commentary}</p>
+					<small>${transaction.transactionDate}</small>
 				</div>
 				<div class="col-sm-2">
-					<h5 class="text-center centrado">-15.00€</h5>
+					<h5 class="text-center centrado">${transaction.value}</h5>
 				</div>
 			</div>
 		</div>
