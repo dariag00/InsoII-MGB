@@ -35,7 +35,7 @@ public class AccountController {
 			return "redirect:dashboard";
 		}
 		
-		System.out.println(userAccount.getAccountOwner().getFullName());
+		//System.out.println(userAccount.getAccountOwner().getFullName());
 		
 		model.addAttribute("account", userAccount);
 		

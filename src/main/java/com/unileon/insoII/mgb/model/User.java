@@ -1,6 +1,5 @@
 package com.unileon.insoII.mgb.model;
 
-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -152,6 +151,18 @@ public class User implements Serializable{
 			listOfAccounts.add(uac.getAccount());
 		}
 		return listOfAccounts;
+	}
+	
+	public UserAccount getUserAccountByAccount(Account account) {
+		System.out.println("SIZE: " + accounts.size());
+		for(UserAccount ac : accounts) {
+			System.out.println("A " + ac.getId() + " " + account.getId());
+			if(ac.getAccount().getId() == account.getId()) {
+				return ac;
+			}
+		}
+		
+		return null;
 	}
 	
 	@Override

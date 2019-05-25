@@ -1,5 +1,6 @@
 package com.unileon.insoII.mgb.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,10 @@ import com.unileon.insoII.mgb.form.model.UserForm;
 import com.unileon.insoII.mgb.model.Account;
 import com.unileon.insoII.mgb.model.Card;
 import com.unileon.insoII.mgb.model.User;
+import com.unileon.insoII.mgb.model.UserAccount;
 import com.unileon.insoII.mgb.repository.AccountRepository;
 import com.unileon.insoII.mgb.repository.CardRepository;
+import com.unileon.insoII.mgb.repository.UserAccountRepository;
 import com.unileon.insoII.mgb.repository.UserRepository;
 import com.unileon.insoII.mgb.utils.Constants;
 
@@ -27,6 +30,8 @@ public class UserService {
 	AccountRepository accountRepository;
 	@Autowired
 	CardRepository cardRepository;
+	@Autowired
+	UserAccountRepository uacRepository;
 	
 	public User createUser(UserForm userForm) {
 		
@@ -60,9 +65,25 @@ public class UserService {
 			card.setStatus(Constants.CARD_STATUS_ACTIVE);
 			
 			user = userRepository.save(user);
-			accountRepository.save(account);
+			account = accountRepository.save(account);
 			cardRepository.save(card);
 			
+			
+			user = (User) userRepository.findByEmail(user.getEmail()).get(0);
+			UserAccount ac = null;
+			List<UserAccount> uacs = new ArrayList<>();
+			Iterable<UserAccount> iterable = uacRepository.findAll();
+			iterable.forEach(uacs::add);
+			for(UserAccount us : uacs) {
+				if(us.getUser().getId() == user.getId())
+					ac = us;
+					
+			}
+			
+			if(ac != null) {
+				ac.setRoleId(Constants.ROLE_ACCOUNT_OWNER);
+				uacRepository.save(ac);
+			}
 		}
 	
 		

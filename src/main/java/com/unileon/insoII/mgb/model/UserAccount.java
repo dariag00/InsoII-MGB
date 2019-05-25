@@ -3,6 +3,8 @@ package com.unileon.insoII.mgb.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,11 +15,13 @@ import javax.persistence.Table;
 public class UserAccount implements Serializable{
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
 	@ManyToOne
 	@JoinColumn
 	private User user;
 	
-	@Id
 	@ManyToOne
 	@JoinColumn
 	private Account account;
@@ -62,6 +66,15 @@ public class UserAccount implements Serializable{
 
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
+	}
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
