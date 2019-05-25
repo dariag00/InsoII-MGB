@@ -20,4 +20,7 @@ public class Constants {
 	public final static int CARD_STATUS_INACTIVE = 1;
 	public final static int CARD_STATUS_SUSPENDED = 2;
 	
+	public final static int TRANSFER_OK = 0;
+	public final static int TRANSFER_IBAN_NOT_FOUND = -1;
+	
 }

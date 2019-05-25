@@ -28,6 +28,7 @@ public class Transaction {
 	private double value;
 	private String commentary;
 	private String beneficiary;
+	private String destinyIban;
 	
 	public int getId() {
 		return id;
@@ -77,6 +78,13 @@ public class Transaction {
 	public void setBeneficiary(String beneficiary) {
 		this.beneficiary = beneficiary;
 	}
+	public String getDestinyIban() {
+		return destinyIban;
+	}
+	public void setDestinyIban(String destinyIban) {
+		this.destinyIban = destinyIban;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
