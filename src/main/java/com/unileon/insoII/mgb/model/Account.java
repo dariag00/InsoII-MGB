@@ -26,12 +26,12 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<UserAccount> users = new HashSet<>();
 	
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Card> cards = new HashSet<>();
 	
-	@OneToMany(mappedBy = "originAccount", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "originAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Transaction> transactionsDone = new HashSet<>();
-	@OneToMany(mappedBy = "destinyAccount", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "destinyAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Transaction> transactionsRecieved = new HashSet<>();
 	
 	private int currency;
@@ -41,7 +41,6 @@ public class Account implements Serializable{
 	
 	public Account() {
 		generateIban();
-		addBalance(50);
 	}
 	
 	public int getId() {

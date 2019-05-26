@@ -22,5 +22,6 @@ public class Constants {
 	
 	public final static int TRANSFER_OK = 0;
 	public final static int TRANSFER_IBAN_NOT_FOUND = -1;
+	public final static int TRANSFER_IBAN_NOT_ENOUGH_FUNDS = -2;
 	
 }

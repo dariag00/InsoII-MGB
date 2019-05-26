@@ -32,10 +32,15 @@ public class TransferService {
 		transaction.setTransactionDate(new Date());
 		transaction.setValue(transactionForm.getValue());
 		
+		if(transactionForm.getValue() > originAccount.getBalance()) {
+			System.out.println("Se ha intentado realizar una transferencia pero la cuenta no tenía suficientes fondos");
+			return Constants.TRANSFER_IBAN_NOT_ENOUGH_FUNDS;
+		}
+		
 		if(transactionForm.getType() == 0) {
 			//Se trata de una transferencia normal
 			transaction.setDestinyIban(transactionForm.getIban());
-			
+			originAccount.substractBalance(transactionForm.getValue());
 		}else if(transactionForm.getType() == 1) {
 			//Se trata de una transferencia entre cuentas de MGB
 			Account destinyAccount = accountRepository.findByIban(transactionForm.getIban()).get(0);
@@ -43,6 +48,7 @@ public class TransferService {
 			if(destinyAccount != null) {
 				transaction.setDestinyAccount(destinyAccount);
 				transaction.setDestinyIban(transactionForm.getIban());
+				destinyAccount.addBalance(transaction.getValue());
 			}else {
 				//No se ha podido encontrar la cuenta
 				System.out.println("No se ha podido encontrar la cuenta");
@@ -51,6 +57,7 @@ public class TransferService {
 		}
 		
 		transactionRepository.save(transaction);
+		accountRepository.save(originAccount);
 		
 		return Constants.TRANSFER_OK;
 	}

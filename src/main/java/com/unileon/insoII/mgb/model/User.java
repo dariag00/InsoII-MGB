@@ -3,6 +3,8 @@ package com.unileon.insoII.mgb.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -128,6 +130,32 @@ public class User implements Serializable{
 	public void setFirstLogin(boolean firstLogin) {
 		this.firstLogin = firstLogin;
 	}
+	
+	public List<Transaction> getAllTransactions(){
+		
+		List<Account> accounts = this.getListOfAccounts();
+		List<Transaction> totalTransactions = new ArrayList<>();
+		for(Account account: accounts) {
+			Set<Transaction> trans = account.getTransactionsDone();
+			for(Transaction tr : trans) {
+				totalTransactions.add(tr);
+			}
+			trans = account.getTransactionsRecieved();
+			for(Transaction tr : trans) {
+				totalTransactions.add(tr);
+			}
+		}
+		Comparator comparator = Collections.reverseOrder();
+		
+		Collections.sort(totalTransactions, new Comparator<Transaction>() {
+			  public int compare(Transaction o1, Transaction o2) {
+			      return o1.getTransactionDate().compareTo(o2.getTransactionDate());
+			  }
+		});
+		Collections.reverse(totalTransactions);
+		return totalTransactions;
+	}
+	
 	public String getFullName() {
 		
 		String[] apellidosArray = this.apellidos.split(" ");

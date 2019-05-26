@@ -1,6 +1,10 @@
 package com.unileon.insoII.mgb.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -83,6 +87,19 @@ public class Transaction {
 	}
 	public void setDestinyIban(String destinyIban) {
 		this.destinyIban = destinyIban;
+	}
+	
+	public String getFormattedDate() {
+		
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+		cal.setTime(this.transactionDate);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int hour = cal.get(Calendar.HOUR);
+		int minute = cal.get(Calendar.MINUTE);
+		
+		return day + "/" + month + "/" + year + " " + hour + ":" + minute;
 	}
 	
 	@Override

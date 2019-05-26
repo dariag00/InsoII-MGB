@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 import com.unileon.insoII.mgb.form.model.UserForm;
 import com.unileon.insoII.mgb.model.Account;
 import com.unileon.insoII.mgb.model.Card;
+import com.unileon.insoII.mgb.model.Transaction;
 import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.model.UserAccount;
 import com.unileon.insoII.mgb.repository.AccountRepository;
 import com.unileon.insoII.mgb.repository.CardRepository;
+import com.unileon.insoII.mgb.repository.TransactionRepository;
 import com.unileon.insoII.mgb.repository.UserAccountRepository;
 import com.unileon.insoII.mgb.repository.UserRepository;
 import com.unileon.insoII.mgb.utils.Constants;
@@ -32,6 +34,8 @@ public class UserService {
 	CardRepository cardRepository;
 	@Autowired
 	UserAccountRepository uacRepository;
+	@Autowired
+	TransactionRepository transactionRepository;
 	
 	public User createUser(UserForm userForm) {
 		
@@ -77,13 +81,22 @@ public class UserService {
 			for(UserAccount us : uacs) {
 				if(us.getUser().getId() == user.getId())
 					ac = us;
-					
 			}
 			
 			if(ac != null) {
 				ac.setRoleId(Constants.ROLE_ACCOUNT_OWNER);
 				uacRepository.save(ac);
 			}
+			
+			//Realizamos la transaccion de bienvenida
+			Transaction transaction = new Transaction();
+			transaction.setBeneficiary(user.getFullName());
+			transaction.setCommentary("Transferencia de Bienvenida a MGB");
+			transaction.setDestinyAccount(ac.getAccount());
+			transaction.setTransactionDate(new Date());
+			transaction.setValue(50);
+			
+			transactionRepository.save(transaction);
 		}
 	
 		

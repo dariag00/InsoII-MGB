@@ -30,7 +30,7 @@ public class LoginService {
 			return false;
 	}
 	
-	private void createSession(User user, HttpSession session) {
+	public void createSession(User user, HttpSession session) {
 		session.setAttribute("user", user);
 	}
 
