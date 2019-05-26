@@ -2,6 +2,8 @@ package com.unileon.insoII.mgb.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -191,6 +193,28 @@ public class Account implements Serializable{
 	    }
 		
 		return formattedIban.toString();
+	}
+	
+	
+	public List<Transaction> getTransactions(){
+		
+		List<Transaction> totalTransactions = new ArrayList<>();
+		Set<Transaction> trans = this.getTransactionsDone();
+		for(Transaction tr : trans) {
+			totalTransactions.add(tr);
+		}
+		trans = this.getTransactionsRecieved();
+		for(Transaction tr : trans) {
+			totalTransactions.add(tr);
+		}		Comparator comparator = Collections.reverseOrder();
+		
+		Collections.sort(totalTransactions, new Comparator<Transaction>() {
+			  public int compare(Transaction o1, Transaction o2) {
+			      return o1.getTransactionDate().compareTo(o2.getTransactionDate());
+			  }
+		});
+		Collections.reverse(totalTransactions);
+		return totalTransactions;
 	}
 
 	@Override

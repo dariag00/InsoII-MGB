@@ -1,5 +1,7 @@
 package com.unileon.insoII.mgb.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.unileon.insoII.mgb.model.Account;
+import com.unileon.insoII.mgb.model.Transaction;
 import com.unileon.insoII.mgb.model.User;
 
 @Controller
@@ -38,6 +41,9 @@ public class AccountController {
 		//System.out.println(userAccount.getAccountOwner().getFullName());
 		
 		model.addAttribute("account", userAccount);
+		
+		List<Transaction> transactions = userAccount.getTransactions();
+		model.put("transactions", transactions);
 		
 		return "account_detail";
 	}
