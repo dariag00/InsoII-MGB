@@ -98,6 +98,7 @@ public class Transaction {
 		int day = cal.get(Calendar.DAY_OF_MONTH);
 		int hour = cal.get(Calendar.HOUR);
 		int minute = cal.get(Calendar.MINUTE);
+		System.out.println("");
 		
 		return day + "/" + month + "/" + year + " " + hour + ":" + minute;
 	}
