@@ -95,8 +95,10 @@ public class UserService {
 			transaction.setDestinyAccount(ac.getAccount());
 			transaction.setTransactionDate(new Date());
 			transaction.setValue(50);
+			account.addBalance(50);
 			
 			transactionRepository.save(transaction);
+			account = accountRepository.save(account);
 		}
 	
 		
