@@ -34,9 +34,9 @@
 		  						${errorMessage}
 							</div>
 						</c:if>
-						<c:if test="${not empty sucessMessage}">
+						<c:if test="${not empty successMessage}">
 							<div class="alert alert-primary" role="alert">
-		  						${sucessMessage}
+		  						${successMessage}
 							</div>
 						</c:if>
 						

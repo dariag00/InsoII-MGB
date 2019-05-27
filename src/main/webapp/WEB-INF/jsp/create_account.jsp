@@ -41,6 +41,11 @@
 				</div>
 				<div class="card-body">
 					<form:form method="POST" id="createAccountForm" action="/addUser" modelAttribute="user" data-parsley-validate="">
+						<c:if test="${not empty errorMessage}">
+							<div class="alert alert-danger" role="alert">
+		  						${errorMessage}
+							</div>
+						</c:if>
 						<h5>Personal Information</h5>
 						<div class="row">
 							<div class="col-md-6">

@@ -74,15 +74,15 @@ public class LoginController {
 	public String createUser(@ModelAttribute("user") UserForm userForm, BindingResult bindingResult, ModelMap model, RedirectAttributes redir) {
 		
 		if (!bindingResult.hasErrors()) {
-			User newUser = userService.createUser(userForm);
-			if(newUser == null) {
+			int result = userService.createUser(userForm);
+			System.out.println("result" + result);
+			if(result == -1) {
 				//ERROR
 				//model.addAttribute("errorMessage", "No hemos podido crear el usuario");
-				redir.addAttribute("errorMessage", "No hemos podido crear el usuario");
+				redir.addFlashAttribute("errorMessage", "No hemos podido crear el usuario");
 				return "redirect:login";
-			}else {
-				newUser = userService.getUserById(newUser.getEmail());
-				redir.addAttribute("successMessage", "The user has been created succesfully");
+			}else if (result == 1){
+				redir.addFlashAttribute("successMessage", "The user has been created succesfully");
 				return "redirect:login";
 			}
 		}

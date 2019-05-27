@@ -37,7 +37,7 @@ public class UserService {
 	@Autowired
 	TransactionRepository transactionRepository;
 	
-	public User createUser(UserForm userForm) {
+	public int createUser(UserForm userForm) {
 		
 		User user = new User();
 		user.setNombre(userForm.getName());
@@ -49,8 +49,8 @@ public class UserService {
 		user.setFirstLogin(true);
 		
 		if(!userForm.getPassword().equals(userForm.getConfirmPassword()))
-			return null;
-		
+			return -1;
+		//Hay que comprobar que no existe ya una cuenta con ese DNI y que no exista una cuenta ya con ese email
 		user.setPassword(userForm.getPassword());
 		user.setDni(userForm.getId());
 		
@@ -102,7 +102,7 @@ public class UserService {
 		}
 	
 		
-		return user;
+		return 1;
 		
 	}
 	

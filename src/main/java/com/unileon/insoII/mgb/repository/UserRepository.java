@@ -11,5 +11,6 @@ import com.unileon.insoII.mgb.model.UserAccount;
 public interface UserRepository extends CrudRepository<User, Integer>  {
 	
 	 List<User> findByEmail(String email);
+	 List<User> findByDni(String dni);
 	 
 }
