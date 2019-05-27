@@ -8,6 +8,11 @@
 	<title>Login</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="<c:url value="/resources/styles.css"/>" rel="stylesheet"></link>
+	<link href="<c:url value="/resources/parsley.css"/>" rel="stylesheet"></link>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="<c:url value="/resources/script.js"/>"></script>
+	<script src="<c:url value="/resources/parsley.js"/>"></script>
 	<!--<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet"></link>-->
 </head>
@@ -35,26 +40,30 @@
 					<img class="card-img-top top-img" src="https://cdn.europosters.eu/image/750/wall-murals/classic-new-york-368x254-cm-premium-non-woven-wallpaper-130gsm-i55784.jpg" alt="Card image cap">
 				</div>
 				<div class="card-body">
-					<form:form method="POST" action="/addUser" modelAttribute="user" >
+					<form:form method="POST" id="createAccountForm" action="/addUser" modelAttribute="user" data-parsley-validate="">
+						<c:if test="${not empty errorMessage}">
+							<div class="alert alert-danger" role="alert">
+		  						${errorMessage}
+							</div>
+						</c:if>
 						<h5>Personal Information</h5>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 								  <form:label path="name" for="input_name">Name</form:label>
-								  <form:input path="name" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Enter Name"/>
+								  <form:input path="name" type="text" class="form-control" data-parsley-required="true" id="input_name" aria-describedby="emailHelp" placeholder="Enter Name"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="surname" for="input_surname">Surname</form:label>
-								  <form:input path="surname" type="text" class="form-control" id="input_surname" placeholder="Surname"/>
+								  <form:input path="surname" type="text" data-parsley-required="true" class="form-control" id="input_surname" placeholder="Surname"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="id" for="input_id">ID</form:label>
-								  <form:input path="id" type="text" class="form-control" id="input_id" placeholder="ID"/>
+								  <form:input path="id" type="text" data-parsley-required="true" class="form-control" id="input_id" placeholder="ID"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="birthdate" for="input_birthdate">Birthdate</form:label>
-								  <form:input path="birthdate" type="text" class="form-control" id="input_birthdate" placeholder="Birthdate"/>
-								  <small id="emailHelp" class="form-text text-muted">We'll never share your data with anyone else.</small>
+								  <form:input path="birthdate" type="text" data-parsley-required="true" class="form-control" id="input_birthdate" placeholder="ID"/>
 								</div>
 								
 							</div>
@@ -82,15 +91,15 @@
 							<div class="col-md-6">
 								<div class="form-group">
 								  <form:label path="email" for="input_email">Email</form:label>
-								  <form:input path="email" type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Enter email"/>
+								  <form:input path="email" data-parsley-required="true" type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Enter email"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="password" for="input_password">Password</form:label>
-								  <form:input path="password" type="password" class="form-control" id="input_password" placeholder="Password"/>
+								  <form:input path="password" data-parsley-required="true" type="password" class="form-control" id="input_password" placeholder="Password"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="confirmPassword" for="input_confirm_password">Confirm Password</form:label>
-								  <form:input path="confirmPassword" type="password" class="form-control" id="input_confirm_password" placeholder="Password"/>
+								  <form:input path="confirmPassword" data-parsley-required="true" type="password" class="form-control" id="input_confirm_password" placeholder="Password"/>
 								</div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>
@@ -117,8 +126,9 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$('#createAccountForm').parsley();
+	</script>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="<c:url value="/resources/script.js"/>"></script>
 </html>

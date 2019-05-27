@@ -9,8 +9,15 @@
 	<title>Dashboard</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="<c:url value="/resources/styles.css"/>" rel="stylesheet"></link>
+	<link href="<c:url value="/resources/parsley.css"/>" rel="stylesheet"></link>
 	<!--<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet"></link>-->
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.2/dist/Chart.bundle.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="<c:url value="/resources/parsley.js"/>"></script>
 </head>
 
 
@@ -53,7 +60,16 @@
 			</div>
 		
 		
-		
+			<c:if test="${not empty errorMessage}">
+				<div class="alert alert-danger" role="alert">
+ 						${errorMessage}
+				</div>
+			</c:if>
+			<c:if test="${not empty successMessage}">
+				<div class="alert alert-primary" role="alert">
+ 						${successMessage}
+				</div>
+			</c:if>
 			<div class="row summaryContainer">
 				<div class="col-md-6">
 					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
@@ -123,26 +139,26 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      	 <form:form method="POST" action="/addTransfer" modelAttribute="transfer" >
+	      	 <form:form method="POST" id="transferForm" action="/addTransfer" modelAttribute="transfer" data-parsley-validate="">
 		      <div class="modal-body">
 					<h4>A quien le quieres enviar el dinero?</h4>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 							  <form:label path="beneficiary" for="input_name">Name</form:label>
-							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Diego Arias García"/>
+							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Diego Arias" data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="iban" for="input_name">IBAN</form:label>
-							  <form:input path="iban" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="ES 1555 1100...."/>
+							  <form:input path="iban" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="ES 1555 1100...." data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="commentary" for="input_name">Comentario</form:label>
-							  <form:input path="commentary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Recibo de pago"/>
+							  <form:input path="commentary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Recibo de pago" data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="value" for="input_name">Valor</form:label>
-							  <form:input path="value" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="135.22"/>
+							  <form:input path="value" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="135.22" data-parsley-min="0.1" data-parsley-type="number" data-parsley-required="true"/>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -172,12 +188,9 @@
 	    </div>
 	  </div>
 	</div>
-
-	
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.2/dist/Chart.bundle.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$('#transferForm').parsley();
+	</script>
 	<script src="<c:url value="/resources/accountChart.js"/>"></script>
 	<script src="<c:url value="/resources/moneyChart.js"/>"></script>
 </body>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unileon.insoII.mgb.form.model.UserForm;
 import com.unileon.insoII.mgb.model.Account;
@@ -70,16 +71,18 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/addUser", method=RequestMethod.POST)
-	public String createUser(@ModelAttribute("user") UserForm userForm, BindingResult bindingResult, ModelMap model) {
+	public String createUser(@ModelAttribute("user") UserForm userForm, BindingResult bindingResult, ModelMap model, RedirectAttributes redir) {
 		
 		if (!bindingResult.hasErrors()) {
-			User newUser = userService.createUser(userForm);
-			if(newUser == null) {
+			int result = userService.createUser(userForm);
+			System.out.println("result" + result);
+			if(result == -1) {
 				//ERROR
-				model.addAttribute("errorMessage", "No hemos podido crear el usuario");
+				//model.addAttribute("errorMessage", "No hemos podido crear el usuario");
+				redir.addFlashAttribute("errorMessage", "No hemos podido crear el usuario");
 				return "redirect:login";
-			}else {
-				newUser = userService.getUserById(newUser.getEmail());
+			}else if (result == 1){
+				redir.addFlashAttribute("successMessage", "The user has been created succesfully");
 				return "redirect:login";
 			}
 		}

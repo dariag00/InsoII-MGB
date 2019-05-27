@@ -34,6 +34,11 @@
 		  						${errorMessage}
 							</div>
 						</c:if>
+						<c:if test="${not empty successMessage}">
+							<div class="alert alert-primary" role="alert">
+		  						${successMessage}
+							</div>
+						</c:if>
 						
 						<div class="card-body">
 							<div class="input-group mb-3">
