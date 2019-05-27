@@ -81,7 +81,7 @@
 					  </button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    <a class="dropdown-item" data-toggle="modal" data-target="#transferModal">Realizar una transferencia</a>
-					    <a class="dropdown-item" href="/newCard">Contratar una tarjeta de crédito</a>
+					    <a class="dropdown-item" data-toggle="modal" data-target="#addCardModal">Contratar una tarjeta de crédito</a>
 					  </div>
 					</div>
 				</div>
@@ -188,6 +188,46 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="addCardModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Contratar una tarjeta nueva</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      	 <form:form method="POST" id="addCardForm" action="/addCard" modelAttribute="addCard" data-parsley-validate="">
+			      <div class="modal-body">
+						<h4>Elige el pin de tu nueva tarjeta</h4>
+						<h5>Debe tener 4 dígitos</h5>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+								  <form:label path="secretPin" for="input_name">PIN</form:label>
+								  <form:input path="secretPin" type="num" class="form-control" id="input_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
+								</div>				
+								<div class="form-group">
+								   <form:label path="account" for="exampleFormControlSelect1">Selecciona una de tus cuentas</form:label>
+								   <form:select path="account" class="form-control" id="exampleFormControlSelect1">
+								   	<c:forEach var="account" items="${accounts}">
+								     <option value="${account}">${account.getFormattedIban()} (${account.balance} €)</option>
+								    </c:forEach>
+								   </form:select>
+								 </div>
+							</div>
+						</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="submit" class="btn btn-primary">Send</button>
+			      </div>
+		      </form:form>
+		    </div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 		$('#transferForm').parsley();
 	</script>
