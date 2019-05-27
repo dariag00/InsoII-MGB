@@ -1,6 +1,7 @@
 package com.unileon.insoII.mgb.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,12 +44,18 @@ public class TransferService {
 			originAccount.substractBalance(transactionForm.getValue());
 		}else if(transactionForm.getType() == 1) {
 			//Se trata de una transferencia entre cuentas de MGB
-			Account destinyAccount = accountRepository.findByIban(transactionForm.getIban()).get(0);
+			String formattedIban = transactionForm.getIban().trim().replace(" ", "");
+			List<Account> account = accountRepository.findByIban(formattedIban);
+			Account destinyAccount = null;
+			if(!account.isEmpty()) {
+				destinyAccount = accountRepository.findByIban(formattedIban).get(0);
+			}
 			
 			if(destinyAccount != null) {
 				transaction.setDestinyAccount(destinyAccount);
 				transaction.setDestinyIban(transactionForm.getIban());
 				destinyAccount.addBalance(transaction.getValue());
+				originAccount.substractBalance(transactionForm.getValue());
 			}else {
 				//No se ha podido encontrar la cuenta
 				System.out.println("No se ha podido encontrar la cuenta");

@@ -98,7 +98,7 @@ public class UserService {
 			account.addBalance(50);
 			
 			transactionRepository.save(transaction);
-			account = accountRepository.save(account);
+			accountRepository.save(account);
 		}
 	
 		

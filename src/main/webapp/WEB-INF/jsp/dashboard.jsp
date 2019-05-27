@@ -60,7 +60,16 @@
 			</div>
 		
 		
-		
+			<c:if test="${not empty errorMessage}">
+				<div class="alert alert-danger" role="alert">
+ 						${errorMessage}
+				</div>
+			</c:if>
+			<c:if test="${not empty successMessage}">
+				<div class="alert alert-primary" role="alert">
+ 						${successMessage}
+				</div>
+			</c:if>
 			<div class="row summaryContainer">
 				<div class="col-md-6">
 					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
@@ -137,7 +146,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 							  <form:label path="beneficiary" for="input_name">Name</form:label>
-							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="" data-parsley-required="true"/>
+							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Diego Arias" data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="iban" for="input_name">IBAN</form:label>

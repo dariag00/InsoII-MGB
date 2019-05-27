@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unileon.insoII.mgb.form.model.TransactionForm;
 import com.unileon.insoII.mgb.form.model.UserForm;
@@ -24,6 +25,7 @@ import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.service.LoginService;
 import com.unileon.insoII.mgb.service.TransferService;
 import com.unileon.insoII.mgb.service.UserService;
+import com.unileon.insoII.mgb.utils.Constants;
 
 @Controller
 public class DashboardController {
@@ -79,7 +81,7 @@ public class DashboardController {
 		model.put("user", user);
 		//Obtenemos la lista de cuentas del usuario
 		List<Account> accountList = user.getListOfAccounts();
-		System.out.println("A:" + accountList.get(0).getBalance());
+		//System.out.println("A:" + accountList.get(0).getBalance());
 		model.put("accounts", accountList);
 		
 		Set<Card> cards = user.getCards();
@@ -89,16 +91,29 @@ public class DashboardController {
 		model.put("transactions", transactions);
 		
 		model.addAttribute("transfer", new TransactionForm());
+		/*model.addAttribute("successMessage", "Transfer done succesfuly");
+		model.addAttribute("errorMessage", "No hay suficientes fondos.");*/
 		
 		return "dashboard";
 	}
 	
 	@RequestMapping(value="/addTransfer", method=RequestMethod.POST)
-	public String addTransfer(@ModelAttribute("transfer") TransactionForm transactionForm, BindingResult bindingResult, ModelMap model) {
+	public String addTransfer(@ModelAttribute("transfer") TransactionForm transactionForm, BindingResult bindingResult, ModelMap model,  RedirectAttributes redir) {
 		
 		if (!bindingResult.hasErrors()) {
+			System.out.println("Entro");
 			
 			int result = transferService.createTransfer(transactionForm);
+			System.out.println("Result: " + result);
+			
+			if(result == Constants.TRANSFER_OK)
+				redir.addFlashAttribute("successMessage", "Transfer done succesfuly");
+			if(result == Constants.TRANSFER_IBAN_NOT_ENOUGH_FUNDS)
+				redir.addFlashAttribute("errorMessage","We cant make the transfer because there are not enough funds in the selected account.");
+			if(result == Constants.TRANSFER_IBAN_NOT_FOUND)
+				redir.addFlashAttribute("errorMessage","We cant make the transfer because MGB doesnt have an account with that IBAN");
+			
+			//redir.addFlashAttribute("errorMessage","We cant make the transfer because there are not enough funds.");
 			
 			return "redirect:dashboard";
 		}
