@@ -17,4 +17,12 @@ public class AccountService {
 		accountRepository.save(account);
 	}
 	
+	public void deleteAccount(Account account) {
+		accountRepository.delete(account);
+	}
+	
+	public Account getAccountById(int id) {
+		return accountRepository.findById(id).get(0);
+	}
+	
 }
