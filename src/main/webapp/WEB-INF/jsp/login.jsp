@@ -14,7 +14,7 @@
 
 <body>
 
-	<%@ include file="navbar.jsp" %>
+	<%@ include file="navbarWelcome.jsp" %>
 	<div class="main">
 		<div class="container ">
 			<div class="row loginRow align-items-center">
