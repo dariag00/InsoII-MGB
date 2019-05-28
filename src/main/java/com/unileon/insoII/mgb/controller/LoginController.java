@@ -90,9 +90,17 @@ public class LoginController {
 		return "redirect:login";
 	}
 	
+	
+	
 	@RequestMapping(value={"/importantInformation"}, method = RequestMethod.GET)
 	public String showInformationPage(Model model) {
 		return "importantInformation";
+	}
+	
+	@RequestMapping(value={"/logOut"}, method = RequestMethod.GET)
+	public String logOut(Model model, HttpSession session) {
+		loginService.destroySession(session);
+		return "login";
 	}
 	
 

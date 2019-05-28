@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 width="35" height="35"
@@ -32,7 +33,6 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
         </div>
       </li>
     </ul>
-    <a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> My Account</a>
-    <button class="btn btn-danger" type="submit">Log out</button>
+    <a class="btn btn-danger" href="/logOut">Log out</a>
   </div>
 </nav>
