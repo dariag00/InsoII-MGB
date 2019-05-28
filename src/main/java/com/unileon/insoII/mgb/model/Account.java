@@ -36,6 +36,8 @@ public class Account implements Serializable{
 	@OneToMany(mappedBy = "destinyAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Transaction> transactionsRecieved = new HashSet<>();
 	
+	private String secretPassword;
+	
 	private int currency;
 	private Date creationDate;
 	private double balance;
@@ -43,6 +45,7 @@ public class Account implements Serializable{
 	
 	public Account() {
 		generateIban();
+		generateSecretPassword();
 	}
 	
 	public int getId() {
@@ -106,6 +109,14 @@ public class Account implements Serializable{
 		this.iban = iban;
 	}
 	
+	public String getSecretPassword() {
+		return secretPassword;
+	}
+
+	public void setSecretPassword(String secretPassword) {
+		this.secretPassword = secretPassword;
+	}
+
 	public void removeUser(User user) {
         for (Iterator<UserAccount> iterator = users.iterator();
              iterator.hasNext(); ) {
@@ -138,6 +149,16 @@ public class Account implements Serializable{
 	    }
 	    
 	    this.iban = iban;
+	}
+	
+	public void generateSecretPassword() {
+		String values = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz"; 
+		StringBuilder sb = new StringBuilder(10); 
+		for(int i=0;i<10;i++) {
+			int value = (int)(values.length()  * Math.random()); 
+			sb.append(values.charAt(value));
+		}
+		this.secretPassword = sb.toString();
 	}
 	
 	public boolean addBalance(double value) {

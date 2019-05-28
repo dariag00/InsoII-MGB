@@ -27,6 +27,7 @@ import com.unileon.insoII.mgb.model.Card;
 import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.service.LoginService;
 import com.unileon.insoII.mgb.service.UserService;
+import com.unileon.insoII.mgb.utils.Constants;
 
 @Controller
 public class LoginController {
@@ -65,8 +66,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value={"/create_account"}, method = RequestMethod.GET)
-	public String showCreateAccountPage(Model model) {
+	public String showCreateAccountPage(ModelMap model) {
 		model.addAttribute("user", new UserForm());
+		//model.addAttribute("errorMessage", "The user doesn't exist or passwords do not match");
 		return "create_account";
 	}
 	
@@ -76,17 +78,25 @@ public class LoginController {
 		if (!bindingResult.hasErrors()) {
 			int result = userService.createUser(userForm);
 			System.out.println("result" + result);
-			if(result == -1) {
-				//ERROR
-				//model.addAttribute("errorMessage", "No hemos podido crear el usuario");
-				redir.addFlashAttribute("errorMessage", "No hemos podido crear el usuario");
-				return "redirect:login";
-			}else if (result == 1){
+			if(result == Constants.CREATE_ACCOUNT_OK) {
 				redir.addFlashAttribute("successMessage", "The user has been created succesfully");
+				return "redirect:login";
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD){
+				model.addAttribute("errorMessage", "The secret password provided is incorrect");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_PASSWORDS_NO_MATCH){
+				model.addAttribute("errorMessage", "The passwords do not match");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID){
+				model.addAttribute("errorMessage", "The owner´s account id provided is incorrect");
+				return "create_account";
+			}else {
+				redir.addFlashAttribute("errorMessage", "Unknown error creating the user");
 				return "redirect:login";
 			}
 		}
 		
+		redir.addFlashAttribute("errorMessage", "Unknown error creating the user");
 		return "redirect:login";
 	}
 	

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -49,7 +50,7 @@ public class UserService {
 		user.setFirstLogin(true);
 		
 		if(!userForm.getPassword().equals(userForm.getConfirmPassword()))
-			return -1;
+			return Constants.CREATE_ACCOUNT_PASSWORDS_NO_MATCH;
 		//Hay que comprobar que no existe ya una cuenta con ese DNI y que no exista una cuenta ya con ese email
 		user.setPassword(userForm.getPassword());
 		user.setDni(userForm.getId());
@@ -74,6 +75,7 @@ public class UserService {
 			
 			
 			user = (User) userRepository.findByEmail(user.getEmail()).get(0);
+			
 			UserAccount ac = null;
 			List<UserAccount> uacs = new ArrayList<>();
 			Iterable<UserAccount> iterable = uacRepository.findAll();
@@ -99,10 +101,65 @@ public class UserService {
 			
 			transactionRepository.save(transaction);
 			accountRepository.save(account);
+		}else {
+			System.out.println("ACCId:" + userForm.getAccountId() + " pass: " + userForm.getSecretPassword() + " id U: " + userForm.getAccountOwnerId());
+			
+			Optional<Account> accountL =  accountRepository.findById(Integer.valueOf(userForm.getAccountId()));
+			if(accountL == null || !accountL.isPresent())
+				return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
+				
+			account = accountL.get();
+			
+			if(account == null)
+				return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
+			
+			if(account.getSecretPassword().equals(userForm.getSecretPassword()) 
+					&& (account.getAccountOwner().getId() == Integer.valueOf(userForm.getAccountOwnerId()))) {
+				
+				account.addUser(user);
+				
+				//Creamos una tarjeta nueva asociada a esta cuenta
+				Card card = new Card();
+				card.setAccount(account);
+				card.setUser(user);
+				card.setStatus(Constants.CARD_STATUS_ACTIVE);
+				
+				user = userRepository.save(user);
+				cardRepository.save(card); 
+				
+				UserAccount ac = null;
+				List<UserAccount> uacs = new ArrayList<>();
+				Iterable<UserAccount> iterable = uacRepository.findAll();
+				iterable.forEach(uacs::add);
+				for(UserAccount us : uacs) {
+					if(us.getUser().getId() == user.getId())
+						ac = us;
+				}
+				
+				if(ac != null) {
+					ac.setRoleId(Constants.ROLE_ACCOUNT_USER);
+					uacRepository.save(ac);
+				}
+				
+				
+				Transaction transaction = new Transaction();
+				transaction.setBeneficiary(user.getFullName());
+				transaction.setCommentary("Transferencia gratuita por cortesia de MGB por invitar a " + user.getNombre());
+				transaction.setDestinyAccount(account);
+				transaction.setTransactionDate(new Date());
+				transaction.setValue(25);
+				account.addBalance(25);
+				
+				transactionRepository.save(transaction);
+				
+			}else {
+				return Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD;
+			}
+			
 		}
 	
 		
-		return 1;
+		return Constants.CREATE_ACCOUNT_OK;
 		
 	}
 	
