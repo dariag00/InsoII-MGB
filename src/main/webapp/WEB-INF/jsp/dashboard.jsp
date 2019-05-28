@@ -198,7 +198,7 @@
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      	 <form:form method="POST" id="addCardForm" action="/addCard" modelAttribute="addCard" data-parsley-validate="">
+		      	 <form:form method="POST" id="addCardForm" action="/addCard" modelAttribute="newCard" data-parsley-validate="">
 			      <div class="modal-body">
 						<h4>Elige el pin de tu nueva tarjeta</h4>
 						<h5>Debe tener 4 dígitos</h5>
@@ -209,10 +209,10 @@
 								  <form:input path="secretPin" type="num" class="form-control" id="input_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
 								</div>				
 								<div class="form-group">
-								   <form:label path="account" for="exampleFormControlSelect1">Selecciona una de tus cuentas</form:label>
-								   <form:select path="account" class="form-control" id="exampleFormControlSelect1">
+								   <form:label path="idAccount" for="exampleFormControlSelect1">Selecciona una de tus cuentas</form:label>
+								   <form:select path="idAccount" class="form-control" id="exampleFormControlSelect1">
 								   	<c:forEach var="account" items="${accounts}">
-								     <option value="${account}">${account.getFormattedIban()} (${account.balance} €)</option>
+								     <option value="${account.id}">${account.getFormattedIban()} (${account.balance} €)</option>
 								    </c:forEach>
 								   </form:select>
 								 </div>
@@ -230,6 +230,7 @@
 	
 	<script type="text/javascript">
 		$('#transferForm').parsley();
+		$('#addCardForm').parsley();
 	</script>
 	<script src="<c:url value="/resources/accountChart.js"/>"></script>
 	<script src="<c:url value="/resources/moneyChart.js"/>"></script>

@@ -95,25 +95,34 @@ public class DashboardController {
 		model.put("transactions", transactions);
 
 		model.addAttribute("transfer", new TransactionForm());
-		model.addAttribute("addCard", new CardForm());
+		model.addAttribute("newCard", new CardForm());
 		/*model.addAttribute("successMessage", "Transfer done succesfuly");
 		model.addAttribute("errorMessage", "No hay suficientes fondos.");*/
 		
 		return "dashboard";
 	}
 	@RequestMapping(value="/addCard", method=RequestMethod.POST)
-	public String addCard(@ModelAttribute("addCard") CardForm cardForm, BindingResult bindingResult, ModelMap model, RedirectAttributes redir) {
+	public String addCard(@ModelAttribute("newCard") CardForm cardForm, BindingResult bindingResult, ModelMap model, RedirectAttributes redir, HttpSession session) {
 		if(!bindingResult.hasErrors()) {
 			System.out.println("Entro");
+			User user = (User) session.getAttribute("user");
+			if(user==null) {
+				redir.addFlashAttribute("errorMessage", "User is not logged in / User lost");
+				return "redirect:login";
+				
+				
+			}
+			int result = cardService.createCard(cardForm,user);
 			
-			int result = cardService.createCard(cardForm);
 			System.out.println("Result: "+ result);
 			
-			if (result==Constants.TRANSFER_OK)
+			if (result==Constants.CARD_OK)
 				redir.addFlashAttribute("successMessage", "Card added successfully");
+			//TODO Añadir errores
 			
 			return "redirect:dashboard";
 		}
+		System.out.println("No-Entro");
 		return "redirect:dashboard";
 	}
 

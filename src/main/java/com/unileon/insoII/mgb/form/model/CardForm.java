@@ -11,15 +11,15 @@ import com.unileon.insoII.mgb.model.User;
 public class CardForm {
 
 	private String secretPin;
-	private Account account;
+	private int idAccount;
 	
-
-	public Account getAccount() {
-		return account;
+	public int getIdAccount() {
+		return idAccount;
 	}
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setIdAccount(int idAccount) {
+		this.idAccount = idAccount;
 	}
+	
 	public String getSecretPin() {
 		return secretPin;
 	}
