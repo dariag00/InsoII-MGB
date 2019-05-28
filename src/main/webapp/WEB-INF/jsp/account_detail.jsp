@@ -66,7 +66,7 @@
 									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#transferModal">Realizar una transferencia</button>
 									<button class="btn btn-primary accountButton" type="button" aria-haspopup="true" aria-expanded="false">Gestionar Usuarios</button>
 									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#inviteUser">Invite an User</button>
-									<button class="btn btn-danger accountButton" type="button" aria-haspopup="true" aria-expanded="false">Dar de baja</button>
+									<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#deleteAccountModal">Dar de baja</button>
 								</div>
 							</div>
 						</div>
@@ -85,35 +85,33 @@
 	<%@ include file="footer.jsp" %>
 	
 	<div class="modal fade" id="inviteUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Invite an User to this Account</h5>
+	        <h4 class="modal-title" id="exampleModalLabel">Invite an User to this Account</h4>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-		      <div class="modal-body">
-					<h4>Aquí estan los datos necesarios para que el usuario se una a la cuenta</h4>
-					<div class="row">
-						<div class="col-md-6">
-						<p>Secret password: ${account.secretPassword}</p>
-						<p>Account's Id: ${account.id}</p>
-						<p>Owner´s Account Id: ${account.getAccountOwner().id}</p>
-						</div>
-						<div class="col-md-6">
-						</div>
-					</div>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      </div>
+		  <div class="modal-body">
+			<h5>Aquí estan los datos necesarios para que el usuario se una a la cuenta</h5>
+			<div class="row">
+				<div class="col-md-12">
+					<p>Secret password: ${account.secretPassword}</p>
+					<p>Account's Id: ${account.id}</p>
+					<p>Owner´s Account Id: ${account.getAccountOwner().id}</p>
+				</div>
+			</div>
+		  </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
 	    </div>
 	  </div>
 	</div>
 	
 	<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="exampleModalLabel">Realizar una Transferencia</h5>
@@ -168,6 +166,28 @@
 	    </div>
 	  </div>
 	</div>
+	
+	<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Delete Account</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       <p>Are you sure that you want to delete this account?</p>
+	       <small>You will lose all your money and cards.</small>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <a class="btn btn-danger anchorBs" href="/deleteAccount?accountId=${account.id}">Delete</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<script type="text/javascript">
 		$('#transferForm').parsley();
 	</script>

@@ -90,5 +90,15 @@ public class AccountController {
 		return "redirect:account_detail";
 	}
 	
+	@RequestMapping(value="/deleteAccount", method=RequestMethod.GET)
+	public String deleteAccount(ModelMap model, @RequestParam int accountId, HttpSession session,  RedirectAttributes redir) {
+		
+		Account userAccount = accountService.getAccountById(accountId);
+		accountService.deleteAccount(userAccount);
+		redir.addFlashAttribute("successMessage", "The account with IBAN: " + userAccount.getIban() + " has been deleted succesfully");
+		
+		return "redirect:dashboard";
+	}
+	
 
 }

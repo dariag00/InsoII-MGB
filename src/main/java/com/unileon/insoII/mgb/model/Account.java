@@ -25,15 +25,15 @@ public class Account implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<UserAccount> users = new HashSet<>();
 	
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "account", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Card> cards = new HashSet<>();
 	
-	@OneToMany(mappedBy = "originAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "originAccount", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Transaction> transactionsDone = new HashSet<>();
-	@OneToMany(mappedBy = "destinyAccount", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "destinyAccount", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Set<Transaction> transactionsRecieved = new HashSet<>();
 	
 	private String secretPassword;
@@ -259,6 +259,7 @@ public class Account implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 
 }
