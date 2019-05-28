@@ -116,6 +116,10 @@ public class DashboardController {
 		}
 		return "redirect:dashboard";
 	}
+
+	
+	
+	
 	@RequestMapping(value="/addTransfer", method=RequestMethod.POST)
 	public String addTransfer(@ModelAttribute("transfer") TransactionForm transactionForm, BindingResult bindingResult, ModelMap model,  RedirectAttributes redir) {
 		

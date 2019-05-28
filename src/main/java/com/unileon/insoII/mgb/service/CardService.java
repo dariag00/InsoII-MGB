@@ -26,14 +26,11 @@ public class CardService {
 		
 		Card card = new Card();
 		
-		card.setCardNumber(cardForm.getCardNumber());
-		card.setCvv(cardForm.getCvv());
 		card.setSecretPin(cardForm.getSecretPin());
 		card.setAccount(cardForm.getAccount());
-		card.setUser(cardForm.getUser());
 		cardRepository.save(card);
 		
-		return Constants.TRANSFER_OK;
+		return Constants.CARD_OK;
 	}
 
 }
