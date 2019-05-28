@@ -13,8 +13,8 @@ public class Constants {
 	public final static int TRANSACTION_TYPE_TRANSFER = 0;
 	public final static int TRANSACTION_TYPE_INSTANT_TRANSFER = 1;
 	
-	public final static int OPERATION_TYPE_WITHDRAWAL = 0;
-	public final static int OPERATION_TYPE_PAYMENT = 1;
+	public final static int OPERATION_TYPE_WITHDRAWAL = 1;
+	public final static int OPERATION_TYPE_PAYMENT = 0;
 	
 	public final static int CARD_STATUS_ACTIVE = 0;
 	public final static int CARD_STATUS_INACTIVE = 1;
@@ -25,5 +25,11 @@ public class Constants {
 	public final static int TRANSFER_IBAN_NOT_ENOUGH_FUNDS = -2;
 	
 	public final static int CARD_OK=0;
+	public final static int CARD_ERROR1=0;
+
+	public static final int OPERATION_OK = 0;
+	public static final int OPERATION_IBAN_NOT_ENOUGH_FUNDS = 1;
+	public static final int OPERATION_ERROR = 1;
+	public static final int TRANSFER_TYPE_ERROR = -1;
 	
 }
