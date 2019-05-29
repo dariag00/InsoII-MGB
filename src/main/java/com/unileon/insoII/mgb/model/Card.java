@@ -186,5 +186,15 @@ public class Card implements Serializable{
 		
 		return formattedCardNumber.toString();
 	}
+	
+	public String getStringStatus() {
+		
+		if(this.status == Constants.CARD_STATUS_ACTIVE)
+			return "Active";
+		else if(this.status == Constants.CARD_STATUS_INACTIVE)
+			return "Inactive";
+		else
+			return "";
+	}
 
 }

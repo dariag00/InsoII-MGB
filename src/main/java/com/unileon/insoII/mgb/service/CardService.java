@@ -46,6 +46,16 @@ public class CardService {
 		cardRepository.delete(card);
 	}
 	
+	public void changeCardStatus(Card card) {
+		
+		if(card.getStatus() == Constants.CARD_STATUS_ACTIVE)
+			card.setStatus(Constants.CARD_STATUS_INACTIVE);
+		else if(card.getStatus() == Constants.CARD_STATUS_INACTIVE)
+			card.setStatus(Constants.CARD_STATUS_ACTIVE);
+		
+		cardRepository.save(card);
+	}
+	
 	public int changePin(CardForm cardForm, int cardId) {
 		
 		Card card = cardRepository.findById(cardId).get();

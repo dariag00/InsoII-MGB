@@ -72,8 +72,19 @@ public class CardController {
 	}
 	
 	@RequestMapping(value= {"/deleteCard"}, method = RequestMethod.GET)
-	public String deleteCard(ModelMap model, @RequestParam int cardId, HttpSession session) {
-		return null;
+	public String deleteCard(ModelMap model, @RequestParam int cardId, HttpSession session, RedirectAttributes redir) {
+		Card card = cardService.getCardById(cardId);
+		cardService.deleteCard(card);
+		redir.addFlashAttribute("successMessage","The card with Number: " + card.getFormattedCardNumber() + " has been deleted succesfully");
+		return "redirect:dashboard";
+	}
+	
+	@RequestMapping(value= {"/changeCardStatus"}, method = RequestMethod.GET)
+	public String changeCardStatus(ModelMap model, @RequestParam int cardId, HttpSession session, RedirectAttributes redir) {
+		Card card = cardService.getCardById(cardId);
+		cardService.changeCardStatus(card);
+		redir.addFlashAttribute("successMessage","The card with Number: " + card.getFormattedCardNumber() + " has changed it status correctly");
+		return "redirect:cardDetail?cardId="+cardId;
 	}
 	
 	@RequestMapping(value= {"/changePin"}, method = RequestMethod.POST)

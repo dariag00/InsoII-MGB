@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Card Detail</title>
+	<title>Detalles de la Tarjeta</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link href="<c:url value="/resources/styles.css"/>" rel="stylesheet"></link>
 	<link href="<c:url value="/resources/parsley.css"/>" rel="stylesheet"></link>
@@ -18,6 +18,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.2/dist/Chart.bundle.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/parsley.js"/>"></script>
+	<script src="<c:url value="/resources/es.js"/>"></script>
 	
 </head>
 
@@ -40,7 +41,7 @@
 		 						${successMessage}
 						</div>
 					</c:if>
-					<h4>Greeting ${user.nombre}, hereby you can find the details of your card.</h4>
+					<h4>Saludos ${user.nombre}, aquí puedes encontrar los detalles de tu cuenta</h4>
 				</div>
 			</div>
 			
@@ -50,23 +51,30 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
-									<h5 class="card-title text-primary">Your Card</h5>
+									<h5 class="card-title text-primary">Tu Tarjeta</h5>
 									<div class="row">
 										<div class="col-md-3">
 											<img src="https://img.icons8.com/dotty/80/000000/credit-card-contactless.png">
 										</div>
 										<div class="col-md-9">
-											<p>Card Number: ${card.getFormattedCardNumber()}</p>
-											<p>Owner: ${card.user.getFullName()}</p>
+											<p>Número de Tarjeta: ${card.getFormattedCardNumber()}</p>
+											<p>Dueño: ${card.user.getFullName()}</p>
 											<p>CVV: ${card.cvv}</p>
+											<p>Estado: ${card.getStringStatus()}</p>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6">
-									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#operationModal">Realizar un pago</button>
-									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#changePinModal">Change PIN</button>
-									<button class="btn btn-danger accountButton" data-toggle="modal" data-target="">Dar de baja la tarjeta</button>
-									<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#deleteAccountModal">Eliminar Tarjeta</button>
+									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#operationModal">Realizar un Pago</button>
+									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#changePinModal">Cambiar el  PIN</button>
+									<c:if test="${card.status == 0}">
+										<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#desactivateCardModal">Desactivar Tarjeta</button>
+									</c:if>
+									<c:if test="${card.status == 1}">
+										<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#activateCardModal">Activar Tarjeta</button>
+									</c:if>
+								
+									<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#deleteCardModal">Borrar Tarjeta</button>
 								</div>
 							</div>
 						</div>
@@ -86,22 +94,63 @@
 	
 
 	
-	<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="deleteCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Delete Card</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">Borrar Tarjeta</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	       <p>Are you sure that you want to delete this card?</p>
-	       <small>You will lose all its information.</small>
+	       <p>¿Estás seguro de que quieres eliminar esta tarjeta?</p>
+	       <small>Perderás toda la información</small>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <a class="btn btn-danger anchorBs" href="/deleteCard?cardId=${card.id}">Delete</a>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <a class="btn btn-danger anchorBs" href="/deleteCard?cardId=${card.id}">Borrar</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="desactivateCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Desactivar Tarjeta</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       <p>¿Estás seguro de que quieres desactivar esta tarjeta?</p>
+	       <small>No podrás usarla hasta que la actives de nuevo</small>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <a class="btn btn-danger anchorBs" href="/changeCardStatus?cardId=${card.id}">Desactivar</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="activateCardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Activar Tarjeta</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       <p>¿Estás seguro de que quieres activar esta tarjeta?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <a class="btn btn-primary anchorBs" href="/changeCardStatus?cardId=${card.id}">Activar</a>
 	      </div>
 	    </div>
 	  </div>
@@ -112,32 +161,39 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Change your PIN</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">Cambiar el PIN</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-	      <form:form method="POST" id="changePinForm" action="/changePin?cardId=${card.id}" modelAttribute="cardForm" data-parsley-validate="">
-	      <div class="modal-body">
-
-    			<div class="form-group">
-				  <form:label path="oldPin" for="input_old_pin">Old PIN</form:label>
-				  <form:input path="oldPin" type="password" class="form-control" id="input_old_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
-				</div>
-				<div class="form-group">
-				  <form:label path="secretPin" for="input_new_pin">New PIN</form:label>
-				  <form:input path="secretPin" type="password" class="form-control" id="input_new_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
-				</div>
-				<div class="form-group">
-				  <form:label path="confirmSecretPin" for="input_new_pin_confirm">Confirm New PIN</form:label>
-				  <form:input path="confirmSecretPin" type="password" class="form-control" id="input_new_pin_confirm" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
-				</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="submit" class="btn btn-primary">Change</button>
-	      </div>
-	     </form:form>
+	      <c:if test="${card.status == 0}">
+		      <form:form method="POST" id="changePinForm" action="/changePin?cardId=${card.id}" modelAttribute="cardForm" data-parsley-validate="">
+		      <div class="modal-body">
+	
+	    			<div class="form-group">
+					  <form:label path="oldPin" for="input_old_pin">Antiguo PIN</form:label>
+					  <form:input path="oldPin" type="password" class="form-control" id="input_old_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
+					</div>
+					<div class="form-group">
+					  <form:label path="secretPin" for="input_new_pin">Nuevo PIN</form:label>
+					  <form:input path="secretPin" type="password" class="form-control" id="input_new_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
+					</div>
+					<div class="form-group">
+					  <form:label path="confirmSecretPin" for="input_new_pin_confirm">Confirmar PIN Nuevo</form:label>
+					  <form:input path="confirmSecretPin" type="password" class="form-control" id="input_new_pin_confirm" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
+					</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="submit" class="btn btn-primary">Cambiar</button>
+		      </div>
+		     </form:form>
+	     </c:if>
+	     <c:if test="${card.status == 1}">
+	    	<div class="modal-body">
+	     		<p>No puedes cambiar el PIN porque la tarjeta se encuentra inactiva</p>
+	     	</div>
+	     </c:if>
 	    </div>
 	  </div>
 	</div>
@@ -147,48 +203,55 @@
 	  <div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Realizar una Operacion</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Realizar un pago</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-      	  <form:form method="POST" id="operationForm" action="/addOperationFromCard" modelAttribute="newOperation" data-parsley-validate="">
-	      	<div class="modal-body">
-				<h4>Concreta los detalles de la operación</h4>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							  <form:label path="location" for="input_name">Destino</form:label>
-							  <form:input path="location" type="num" class="form-control" id="destiny" aria-describedby="emailHelp" placeholder="Cines Aeon" data-parsley-type="text"  data-parsley-required="true"/>
-						</div>			
-						<div class="form-group">
-						 		 <form:label path="value" for="input_name">Valor</form:label>
-						  		<form:input path="value" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="45" data-parsley-min="0.1" data-parsley-type="number" data-parsley-required="true"/>
-						</div>	
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-						   <form:label path="cardId" for="exampleFormControlSelect1">Selecciona una de tus tarjetas</form:label>
-						   <form:select path="cardId" class="form-control" id="exampleFormControlSelect1">
-						   	<option value="${card.id}">${card.getFormattedCardNumber()} (${card.getAccount().balance}€) </option>
-						   </form:select>
-						 </div>
-						<h6>¿Que tipo de Operación quieres realizar?</h6>
-						<div class="form-check">
-							<form:radiobutton path="type" value="0"/> Realizar Pago
+	      <c:if test="${card.status == 0}">
+	      	  <form:form method="POST" id="operationForm" action="/addOperationFromCard" modelAttribute="newOperation" data-parsley-validate="">
+		      	<div class="modal-body">
+					<h4>Detalles de la operación</h4>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								  <form:label path="location" for="input_name">Destino</form:label>
+								  <form:input path="location" type="num" class="form-control" id="destiny" aria-describedby="emailHelp" placeholder="Cines Aeon" data-parsley-type="text"  data-parsley-required="true"/>
+							</div>			
+							<div class="form-group">
+							 		 <form:label path="value" for="input_name">Valor</form:label>
+							  		<form:input path="value" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="45" data-parsley-min="0.1" data-parsley-type="number" data-parsley-required="true"/>
+							</div>	
 						</div>
-						<div class="form-check">
-						  <form:radiobutton path="type" value="1"/> Sacar dinero
+						<div class="col-md-6">
+							<div class="form-group">
+							   <form:label path="cardId" for="exampleFormControlSelect1">Selecciona una tarjeta</form:label>
+							   <form:select path="cardId" class="form-control" id="exampleFormControlSelect1">
+							   	<option value="${card.id}">${card.getFormattedCardNumber()} (${card.getAccount().balance}€) </option>
+							   </form:select>
+							 </div>
+							<h6>Que tipo de operacion quieres hacer?</h6>
+							<div class="form-check">
+								<form:radiobutton path="type" value="0"/> Realizar un pago
+							</div>
+							<div class="form-check">
+							  <form:radiobutton path="type" value="1"/> Retirada de Dinero
+							</div>
 						</div>
 					</div>
-				</div>
-			
-	      </div>
-	      	<div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Send</button>
-	      	</div>
-	      </form:form>
+				
+		      </div>
+		      	<div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        <button type="submit" class="btn btn-primary">Enviar</button>
+		      	</div>
+		      </form:form>
+	      </c:if>
+	      <c:if test="${card.status == 1}">
+	    	<div class="modal-body">
+	     		<p>No puedes realizar ningun pago hasta que actives la tarjeta.</p>
+	     	</div>
+	     </c:if>
 	    </div>
 	  </div>
 	</div>
