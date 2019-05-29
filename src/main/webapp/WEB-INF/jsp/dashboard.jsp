@@ -27,7 +27,7 @@
 	<%@ include file="main_navbar.jsp" %>
 	
 		<div class="container text-" id="dashboardContainer">
-			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Hide/Show promotions</small></a>	
+			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Mostrar/Ocultar promociones</small></a>	
 			<div class="row promotionContainer" id="promotionContainerId">
 				<div class="col-md-4">
 					<div class="card shadow-sm">
