@@ -25,7 +25,7 @@
 <body>
 
 	<%@ include file="main_navbar.jsp" %>
-		<div class="container text-" id="profileContainer">
+		<div class="container text-" id="dashboardContainer">
 			<div class="row summaryContainer">
 				<div class="col-md-8">
 					<c:if test="${not empty errorMessage}">
@@ -75,6 +75,9 @@
 				</div>
 			</div>
 		</div>	
+		
+		
+		
 		<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-lg" role="document">
 			    <div class="modal-content">
@@ -167,9 +170,11 @@
 			    </div>
 			  </div>
 			</div>	
-		<script type="text/javascript">
-		$('#editProfile').parsley();
 	<%@ include file="footer.jsp" %>
 </body>
+
+<script type="text/javascript">
+	$('#editProfile').parsley();
+</script>
 
 </html>

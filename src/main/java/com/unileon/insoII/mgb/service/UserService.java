@@ -175,15 +175,18 @@ public class UserService {
 	public User getUserById(String email) {
 		return userRepository.findByEmail(email).get(0);
 	}
+	
 	public User getUser(int id) {
 		return userRepository.findById(id).get();
 	}
+	
 	public User markFirstLoginAsResolved(User user, HttpSession session) {
 		user = userRepository.findByEmail(user.getEmail()).get(0);
 		user.setFirstLogin(false);
 		user=  userRepository.save(user);
 		return user;
 	}
+	
 	public int editUser(UserForm userForm, User user) {
 		
 		
@@ -209,8 +212,8 @@ public class UserService {
 			else {
 				return Constants.EDIT_PASSWORD_OLD_INCORRECT;
 			}
-		}
-		else if(userForm.getOldPassword().contentEquals("")){
+			
+		}else if(!userForm.getOldPassword().equals("") && userForm.getOldPassword().contentEquals("")){
 			return Constants.EDIT_PASSWORD_EMPTY_OLD;			
 		}
 		
