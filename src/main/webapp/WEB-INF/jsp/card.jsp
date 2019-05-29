@@ -8,6 +8,6 @@
 			<p class="text-secondary">Titular: ${card.getUser().getFullName()}</p>
 		</div>
 	</div>
-	<small id="accountMore" class="form-text text-muted">Click for more info.</small>
+	<a href="/cardDetail?cardId=${card.id}"><small id="accountMore" class="form-text text-muted">Click for more info.</small></a>
 	<hr>
 </div>	

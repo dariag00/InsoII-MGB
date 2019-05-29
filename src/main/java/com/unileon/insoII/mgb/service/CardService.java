@@ -35,5 +35,9 @@ public class CardService {
 		
 		return Constants.CARD_OK;
 	}
+	
+	public Card getCardById(int id) {
+		return cardRepository.findById(id).get();
+	}
 
 }
