@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML>
 <html>
@@ -51,12 +52,12 @@
 	  							<div class="input-group-prepend">
 							    	<span class="input-group-text" id="inputGroup-sizing-default"><img src="https://img.icons8.com/ios/24/000000/password1.png"></span>
 							  	</div>
-	  							<input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Password">
+	  							<input name="password" type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Contraseña">
 							</div>
-							<input type="submit" class="btn btn-primary btn-lg btn-block" value="Log In">
+							<input type="submit" class="btn btn-primary btn-lg btn-block" value="Iniciar Sesión">
 							
 							<hr class="loginSeparator">
-							<a class="btn btn-primary btn-lg btn-block" href="/create_account" role="button">Create an Account</a>
+							<a class="btn btn-primary btn-lg btn-block" href="/create_account" role="button">Crear una Cuenta</a>
 						</div>
 					</form>
 					
