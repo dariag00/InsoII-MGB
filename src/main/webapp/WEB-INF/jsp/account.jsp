@@ -8,6 +8,6 @@
 			<h3 class="text-secondary">${account.getFormattedBalance()}</h3>
 		</div>
 	</div>
-	<a id="accountMore" href="/accountDetail?accountId=${account.id}" class="form-text text-muted"><small>Click for more info.</small></a>
+	<a id="accountMore" href="/accountDetail?accountId=${account.id}" class="form-text text-muted"><small>Click para más información.</small></a>
 	<hr>
 </div>	
