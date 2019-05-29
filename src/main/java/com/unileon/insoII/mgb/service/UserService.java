@@ -55,6 +55,12 @@ public class UserService {
 		user.setPassword(userForm.getPassword());
 		user.setDni(userForm.getId());
 		
+		if(!userRepository.findByDni(userForm.getId().trim()).isEmpty())
+			return Constants.CREATE_ACCOUNT_DNI_ALREADY_EXISTS;
+		
+		if(!userRepository.findByEmail(userForm.getEmail().trim()).isEmpty())
+			return Constants.CREATE_ACCOUNT_EMAIL_ALREADY_EXISTS;
+		
 		Account account = new Account();
 		//Ahora miramos si es una cuenta nueva o no
 		if(userForm.getAccountId().isEmpty()) {

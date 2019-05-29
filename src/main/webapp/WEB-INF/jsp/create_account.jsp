@@ -14,6 +14,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/script.js"/>"></script>
 	<script src="<c:url value="/resources/parsley.js"/>"></script>
+	<script src="<c:url value="/resources/es.js"/>"></script>
 	<!--<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<link href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet"></link>-->
 </head>
@@ -97,11 +98,11 @@
 								</div>
 								<div class="form-group">
 								  <form:label path="password" for="input_password">Password</form:label>
-								  <form:input path="password" data-parsley-required="true" type="password" class="form-control" id="input_password" placeholder="Password"/>
+								  <form:input path="password" data-parsley-required="true" type="password" class="form-control" id="input_password" data-parsley-minlength="8" placeholder="Password"/>
 								</div>
 								<div class="form-group">
 								  <form:label path="confirmPassword" for="input_confirm_password">Confirm Password</form:label>
-								  <form:input path="confirmPassword" data-parsley-required="true" type="password" class="form-control" id="input_confirm_password" placeholder="Password"/>
+								  <form:input path="confirmPassword" data-parsley-required="true" type="password" class="form-control" id="input_confirm_password" data-parsley-minlength="8" placeholder="Password"/>
 								</div>
 								<button type="submit" class="btn btn-primary">Submit</button>
 							</div>

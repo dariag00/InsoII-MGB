@@ -60,7 +60,7 @@ public class LoginController {
 			}
 			return "redirect:dashboard";
 		}else {
-			model.addAttribute("errorMessage", "The user doesn't exist or passwords do not match");
+			model.addAttribute("errorMessage", "EL usuario no existe o las contraseñas no coinciden");
 			return "login";
 		}
 	}
@@ -79,19 +79,25 @@ public class LoginController {
 			int result = userService.createUser(userForm);
 			System.out.println("result" + result);
 			if(result == Constants.CREATE_ACCOUNT_OK) {
-				redir.addFlashAttribute("successMessage", "The user has been created succesfully");
+				redir.addFlashAttribute("successMessage", "El usuario se ha creado satisfactoriamente.");
 				return "redirect:login";
 			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD){
-				model.addAttribute("errorMessage", "The secret password provided is incorrect");
+				model.addAttribute("errorMessage", "La contraseña secreta para unirte a una cuenta es incorrecta");
 				return "create_account";
 			}else if (result == Constants.CREATE_ACCOUNT_PASSWORDS_NO_MATCH){
-				model.addAttribute("errorMessage", "The passwords do not match");
+				model.addAttribute("errorMessage", "Las contraseñas no coinciden");
 				return "create_account";
 			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID){
-				model.addAttribute("errorMessage", "The owner´s account id provided is incorrect");
+				model.addAttribute("errorMessage", "El ID del dueño de la cuenta es incorrecto");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_DNI_ALREADY_EXISTS){
+				model.addAttribute("errorMessage", "Ya existe una cuenta registrada con ese DNI");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_EMAIL_ALREADY_EXISTS){
+				model.addAttribute("errorMessage", "Ya existe una cuenta registrada con ese email");
 				return "create_account";
 			}else {
-				redir.addFlashAttribute("errorMessage", "Unknown error creating the user");
+				redir.addFlashAttribute("errorMessage", "Error desconocido al crear un usuario");
 				return "redirect:login";
 			}
 		}

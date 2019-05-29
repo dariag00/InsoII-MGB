@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div id="card">
 	<div class= "row">
 		<div class="col-md-3">
@@ -8,6 +9,6 @@
 			<p class="text-secondary">Titular: ${card.getUser().getFullName()}</p>
 		</div>
 	</div>
-	<a href="/cardDetail?cardId=${card.id}"><small id="accountMore" class="form-text text-muted">Click for more info.</small></a>
+	<a href="/cardDetail?cardId=${card.id}"><small id="accountMore" class="form-text text-muted">Click para más información.</small></a>
 	<hr>
 </div>	
