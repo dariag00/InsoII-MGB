@@ -123,7 +123,7 @@ public class CardController {
 			System.out.println("Result: " + result);
 			
 			if(result == Constants.OPERATION_OK)
-				redir.addFlashAttribute("successMessage", "Operation done successfuly");
+				redir.addFlashAttribute("successMessage", "Operación realizada con exito");
 			if(result == Constants.OPERATION_IBAN_NOT_ENOUGH_FUNDS)
 				redir.addFlashAttribute("errorMessage","We cant make the transfer because there are not enough funds in the selected account.");
 			if(result == Constants.OPERATION_ERROR)
