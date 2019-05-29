@@ -84,8 +84,8 @@
 			
 			<div class="movementsContainer mx-auto">
 				<h4>Tus movimientos</h4>
-				<c:forEach var="transaction" items="${operations}">
-					<%@ include file="movement.jsp" %>
+				<c:forEach var="operation" items="${operations}">
+					<%@ include file="operation.jsp" %>
 				</c:forEach>				
 			</div>
 			

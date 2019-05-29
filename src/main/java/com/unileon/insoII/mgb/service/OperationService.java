@@ -34,6 +34,7 @@ public class OperationService {
 		Card card= cardRepository.findById(Integer.valueOf(operationForm.getCardId())).get();
 		operation.setCard(card);
 		operation.setValue(operationForm.getValue());
+		operation.setOperationDate(new Date());
 		Account account= card.getAccount();
 		
 		if(operationForm.getValue() > account.getBalance()) {
