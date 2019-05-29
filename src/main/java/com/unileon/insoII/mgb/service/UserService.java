@@ -22,6 +22,7 @@ import com.unileon.insoII.mgb.repository.CardRepository;
 import com.unileon.insoII.mgb.repository.TransactionRepository;
 import com.unileon.insoII.mgb.repository.UserAccountRepository;
 import com.unileon.insoII.mgb.repository.UserRepository;
+import com.unileon.insoII.mgb.service.AccountService;
 import com.unileon.insoII.mgb.utils.Constants;
 
 @Service
@@ -37,6 +38,8 @@ public class UserService {
 	UserAccountRepository uacRepository;
 	@Autowired
 	TransactionRepository transactionRepository;
+	@Autowired
+	AccountService accountService;
 	
 	public int createUser(UserForm userForm) {
 		
@@ -166,13 +169,62 @@ public class UserService {
 	public User getUserById(String email) {
 		return userRepository.findByEmail(email).get(0);
 	}
-	
+	public User getUser(int id) {
+		return userRepository.findById(id).get();
+	}
 	public User markFirstLoginAsResolved(User user, HttpSession session) {
 		user = userRepository.findByEmail(user.getEmail()).get(0);
 		user.setFirstLogin(false);
 		user=  userRepository.save(user);
 		return user;
 	}
+	public int editUser(UserForm userForm, User user) {
+		
+		
+		user.setNombre(userForm.getName());
+		user.setApellidos(userForm.getSurname());
+		user.setAddress(userForm.getAddress());
+		user.setCity(userForm.getCity());
+		user.setCountry(userForm.getCountry());
+		if( (!userForm.getOldPassword().equals(""))){
+			if(userForm.getPassword().equals("")) {
+				return Constants.EDIT_PASSWORD_EMPTY;
+			}
+					
+			if(userForm.getOldPassword().contentEquals(user.getPassword())){
+				if(userForm.getPassword().equals(userForm.getConfirmPassword())) {
+					user.setPassword(userForm.getPassword());
+				}
+				else {
+					return Constants.EDIT_PASSWORD_NOT_MATCH;
+				}
+				
+			}
+			else {
+				return Constants.EDIT_PASSWORD_OLD_INCORRECT;
+			}
+		}
+		else if(userForm.getOldPassword().contentEquals("")){
+			return Constants.EDIT_PASSWORD_EMPTY_OLD;			
+		}
+		
+		
+	
+	
+		user = userRepository.save(user);
+		
+		return Constants.EDIT_USER_OK;
+		
+	}
+
+	public void deleteUser(User user) {
+		//Borrar 
+		for(Account account:user.getListOfAccounts())
+			accountService.deleteAccount(account);		
+		userRepository.delete(user);
+		
+	}
+	
 	
 
 }

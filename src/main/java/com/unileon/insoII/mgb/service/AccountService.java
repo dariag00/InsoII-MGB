@@ -1,5 +1,6 @@
 package com.unileon.insoII.mgb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +34,26 @@ public class AccountService {
 	
 	public void deleteAccount(Account account) {
 		
+		List<Card> cardToDelete= new ArrayList<>();
+		List<UserAccount> uAcToDelete= new ArrayList<>();
 		for(Card card:account.getCards()) {
 			//Borrar movimientos
+			cardToDelete.add(card);
+		}
+		for(Card card : cardToDelete) {
+
 			account.getCards().remove(card);
 			card.getUser().getCards().remove(card);
 			System.out.println("Id:" + card.getId());
 			
 			cardRepository.delete(card);
 		}
-		
 		for(UserAccount uac : account.getUsers()) {
+			if(uac.getAccount().getId() == account.getId()) {
+				uAcToDelete.add(uac);
+			}
+		}
+		for(UserAccount uac : uAcToDelete) {
 			if(uac.getAccount().getId() == account.getId()) {
 				uac.getUser().getAccounts().remove(uac);
 				account.getUsers().remove(uac);

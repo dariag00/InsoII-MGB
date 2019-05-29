@@ -36,5 +36,11 @@ public class Constants {
 	public final static int CREATE_ACCOUNT_INCORRECT_PASSWORD = -2;
 	public final static int CREATE_ACCOUNT_PASSWORDS_NO_MATCH = -3;
 	public final static int CREATE_ACCOUNT_UNKNOWN_ERROR = -99;
+	public static final int EDIT_ACCOUNT_OK = 0;
+	public static final int EDIT_USER_OK = 0;
+	public static final int EDIT_PASSWORD_EMPTY_OLD = -1;
+	public static final int EDIT_PASSWORD_NOT_MATCH = -2;
+	public static final int EDIT_PASSWORD_OLD_INCORRECT = -3;
+	public static final int EDIT_PASSWORD_EMPTY = -4;
 	
 }
