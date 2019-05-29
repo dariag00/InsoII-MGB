@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.unileon.insoII.mgb.utils.Constants;
+
+
 @Entity
 @Table(name = "Card")
 public class Card implements Serializable{
@@ -41,6 +44,7 @@ public class Card implements Serializable{
 		generateRandomCardNumber();
 		generateRandomPin();
 		generateCVV();
+		this.status=Constants.CARD_STATUS_ACTIVE;
 	}
 	
 
