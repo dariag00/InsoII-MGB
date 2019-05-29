@@ -27,6 +27,7 @@ import com.unileon.insoII.mgb.model.Card;
 import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.service.LoginService;
 import com.unileon.insoII.mgb.service.UserService;
+import com.unileon.insoII.mgb.utils.Constants;
 
 @Controller
 public class LoginController {
@@ -59,14 +60,15 @@ public class LoginController {
 			}
 			return "redirect:dashboard";
 		}else {
-			model.addAttribute("errorMessage", "The user doesn't exist or passwords do not match");
+			model.addAttribute("errorMessage", "EL usuario no existe o las contraseñas no coinciden");
 			return "login";
 		}
 	}
 	
 	@RequestMapping(value={"/create_account"}, method = RequestMethod.GET)
-	public String showCreateAccountPage(Model model) {
+	public String showCreateAccountPage(ModelMap model) {
 		model.addAttribute("user", new UserForm());
+		//model.addAttribute("errorMessage", "The user doesn't exist or passwords do not match");
 		return "create_account";
 	}
 	
@@ -76,23 +78,45 @@ public class LoginController {
 		if (!bindingResult.hasErrors()) {
 			int result = userService.createUser(userForm);
 			System.out.println("result" + result);
-			if(result == -1) {
-				//ERROR
-				//model.addAttribute("errorMessage", "No hemos podido crear el usuario");
-				redir.addFlashAttribute("errorMessage", "No hemos podido crear el usuario");
+			if(result == Constants.CREATE_ACCOUNT_OK) {
+				redir.addFlashAttribute("successMessage", "El usuario se ha creado satisfactoriamente.");
 				return "redirect:login";
-			}else if (result == 1){
-				redir.addFlashAttribute("successMessage", "The user has been created succesfully");
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD){
+				model.addAttribute("errorMessage", "La contraseña secreta para unirte a una cuenta es incorrecta");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_PASSWORDS_NO_MATCH){
+				model.addAttribute("errorMessage", "Las contraseñas no coinciden");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID){
+				model.addAttribute("errorMessage", "El ID del dueño de la cuenta es incorrecto");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_DNI_ALREADY_EXISTS){
+				model.addAttribute("errorMessage", "Ya existe una cuenta registrada con ese DNI");
+				return "create_account";
+			}else if (result == Constants.CREATE_ACCOUNT_EMAIL_ALREADY_EXISTS){
+				model.addAttribute("errorMessage", "Ya existe una cuenta registrada con ese email");
+				return "create_account";
+			}else {
+				redir.addFlashAttribute("errorMessage", "Error desconocido al crear un usuario");
 				return "redirect:login";
 			}
 		}
 		
+		redir.addFlashAttribute("errorMessage", "Unknown error creating the user");
 		return "redirect:login";
 	}
+	
+	
 	
 	@RequestMapping(value={"/importantInformation"}, method = RequestMethod.GET)
 	public String showInformationPage(Model model) {
 		return "importantInformation";
+	}
+	
+	@RequestMapping(value={"/logOut"}, method = RequestMethod.GET)
+	public String logOut(Model model, HttpSession session) {
+		loginService.destroySession(session);
+		return "redirect:login";
 	}
 	
 

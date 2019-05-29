@@ -33,5 +33,9 @@ public class LoginService {
 	public void createSession(User user, HttpSession session) {
 		session.setAttribute("user", user);
 	}
+	
+	public void destroySession(HttpSession session) {
+		session.removeAttribute("user");
+	}
 
 }

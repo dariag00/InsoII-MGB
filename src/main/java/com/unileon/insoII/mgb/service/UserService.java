@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +22,7 @@ import com.unileon.insoII.mgb.repository.CardRepository;
 import com.unileon.insoII.mgb.repository.TransactionRepository;
 import com.unileon.insoII.mgb.repository.UserAccountRepository;
 import com.unileon.insoII.mgb.repository.UserRepository;
+import com.unileon.insoII.mgb.service.AccountService;
 import com.unileon.insoII.mgb.utils.Constants;
 
 @Service
@@ -36,6 +38,8 @@ public class UserService {
 	UserAccountRepository uacRepository;
 	@Autowired
 	TransactionRepository transactionRepository;
+	@Autowired
+	AccountService accountService;
 	
 	public int createUser(UserForm userForm) {
 		
@@ -49,10 +53,16 @@ public class UserService {
 		user.setFirstLogin(true);
 		
 		if(!userForm.getPassword().equals(userForm.getConfirmPassword()))
-			return -1;
+			return Constants.CREATE_ACCOUNT_PASSWORDS_NO_MATCH;
 		//Hay que comprobar que no existe ya una cuenta con ese DNI y que no exista una cuenta ya con ese email
 		user.setPassword(userForm.getPassword());
 		user.setDni(userForm.getId());
+		
+		if(!userRepository.findByDni(userForm.getId().trim()).isEmpty())
+			return Constants.CREATE_ACCOUNT_DNI_ALREADY_EXISTS;
+		
+		if(!userRepository.findByEmail(userForm.getEmail().trim()).isEmpty())
+			return Constants.CREATE_ACCOUNT_EMAIL_ALREADY_EXISTS;
 		
 		Account account = new Account();
 		//Ahora miramos si es una cuenta nueva o no
@@ -74,6 +84,7 @@ public class UserService {
 			
 			
 			user = (User) userRepository.findByEmail(user.getEmail()).get(0);
+			
 			UserAccount ac = null;
 			List<UserAccount> uacs = new ArrayList<>();
 			Iterable<UserAccount> iterable = uacRepository.findAll();
@@ -99,15 +110,74 @@ public class UserService {
 			
 			transactionRepository.save(transaction);
 			accountRepository.save(account);
+		}else {
+			System.out.println("ACCId:" + userForm.getAccountId() + " pass: " + userForm.getSecretPassword() + " id U: " + userForm.getAccountOwnerId());
+			
+			Optional<Account> accountL =  accountRepository.findById(Integer.valueOf(userForm.getAccountId()));
+			if(accountL == null || !accountL.isPresent())
+				return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
+				
+			account = accountL.get();
+			
+			if(account == null)
+				return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
+			
+			if(account.getSecretPassword().equals(userForm.getSecretPassword()) 
+					&& (account.getAccountOwner().getId() == Integer.valueOf(userForm.getAccountOwnerId()))) {
+				
+				account.addUser(user);
+				
+				//Creamos una tarjeta nueva asociada a esta cuenta
+				Card card = new Card();
+				card.setAccount(account);
+				card.setUser(user);
+				card.setStatus(Constants.CARD_STATUS_ACTIVE);
+				
+				user = userRepository.save(user);
+				cardRepository.save(card); 
+				
+				UserAccount ac = null;
+				List<UserAccount> uacs = new ArrayList<>();
+				Iterable<UserAccount> iterable = uacRepository.findAll();
+				iterable.forEach(uacs::add);
+				for(UserAccount us : uacs) {
+					if(us.getUser().getId() == user.getId())
+						ac = us;
+				}
+				
+				if(ac != null) {
+					ac.setRoleId(Constants.ROLE_ACCOUNT_USER);
+					uacRepository.save(ac);
+				}
+				
+				
+				Transaction transaction = new Transaction();
+				transaction.setBeneficiary(user.getFullName());
+				transaction.setCommentary("Transferencia gratuita por cortesia de MGB por invitar a " + user.getNombre());
+				transaction.setDestinyAccount(account);
+				transaction.setTransactionDate(new Date());
+				transaction.setValue(25);
+				account.addBalance(25);
+				
+				transactionRepository.save(transaction);
+				
+			}else {
+				return Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD;
+			}
+			
 		}
 	
 		
-		return 1;
+		return Constants.CREATE_ACCOUNT_OK;
 		
 	}
 	
 	public User getUserById(String email) {
 		return userRepository.findByEmail(email).get(0);
+	}
+	
+	public User getUser(int id) {
+		return userRepository.findById(id).get();
 	}
 	
 	public User markFirstLoginAsResolved(User user, HttpSession session) {
@@ -116,6 +186,54 @@ public class UserService {
 		user=  userRepository.save(user);
 		return user;
 	}
+	
+	public int editUser(UserForm userForm, User user) {
+		
+		
+		user.setNombre(userForm.getName());
+		user.setApellidos(userForm.getSurname());
+		user.setAddress(userForm.getAddress());
+		user.setCity(userForm.getCity());
+		user.setCountry(userForm.getCountry());
+		if( (!userForm.getOldPassword().equals(""))){
+			if(userForm.getPassword().equals("")) {
+				return Constants.EDIT_PASSWORD_EMPTY;
+			}
+					
+			if(userForm.getOldPassword().contentEquals(user.getPassword())){
+				if(userForm.getPassword().equals(userForm.getConfirmPassword())) {
+					user.setPassword(userForm.getPassword());
+				}
+				else {
+					return Constants.EDIT_PASSWORD_NOT_MATCH;
+				}
+				
+			}
+			else {
+				return Constants.EDIT_PASSWORD_OLD_INCORRECT;
+			}
+			
+		}else if(!userForm.getOldPassword().equals("") && userForm.getOldPassword().contentEquals("")){
+			return Constants.EDIT_PASSWORD_EMPTY_OLD;			
+		}
+		
+		
+	
+	
+		user = userRepository.save(user);
+		
+		return Constants.EDIT_USER_OK;
+		
+	}
+
+	public void deleteUser(User user) {
+		//Borrar 
+		for(Account account:user.getListOfAccounts())
+			accountService.deleteAccount(account);		
+		userRepository.delete(user);
+		
+	}
+	
 	
 
 }
