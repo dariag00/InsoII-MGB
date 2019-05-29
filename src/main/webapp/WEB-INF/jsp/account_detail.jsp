@@ -30,7 +30,7 @@
 		
 			<div class="row summaryContainer">
 				<div class="col-md-6">
-					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
+					<h4>Saludos <b> ${user.nombre}, </b> aquí tienes los detalles de tu cuenta.</h4>
 				</div>
 			</div>
 			
@@ -40,7 +40,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-6">
-									<h5 class="card-title text-primary">Your Account</h5>
+									<h5 class="card-title text-primary">Tu Cuenta</h5>
 									<div class="row">
 										<div class="col-md-3">
 											<img src="https://img.icons8.com/wired/64/000000/money-box.png">
@@ -121,12 +121,12 @@
 	      </div>
 	      	 <form:form method="POST" id="transferForm" action="/addTransferFromAccount" modelAttribute="transfer" data-parsley-validate="">
 		      <div class="modal-body">
-					<h4>A quien le quieres enviar el dinero?</h4>
+					<h4>¿A quién quieres enviar el dinero?</h4>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-							  <form:label path="beneficiary" for="input_name">Name</form:label>
-							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Diego Arias" data-parsley-required="true"/>
+							  <form:label path="beneficiary" for="input_name">Nombre</form:label>
+							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="José Hernandez" data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="iban" for="input_name">IBAN</form:label>
@@ -171,18 +171,18 @@
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">Delete Account</h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle">Borrar Cuenta</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	       <p>Are you sure that you want to delete this account?</p>
-	       <small>You will lose all your money and cards.</small>
+	       <p>¿Estás seguro de que quieres borrar esta cuenta?</p>
+	       <small>Perderás todas tus tarjetas y tu dinero.</small>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <a class="btn btn-danger anchorBs" href="/deleteAccount?accountId=${account.id}">Delete</a>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <a class="btn btn-danger anchorBs" href="/deleteAccount?accountId=${account.id}">Borrar</a>
 	      </div>
 	    </div>
 	  </div>

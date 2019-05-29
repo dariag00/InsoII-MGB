@@ -30,13 +30,13 @@
 	  						${errorMessage}
 						</div>
 					</c:if>
-					<h5>What do you want to do?</h5>
+					<h5>¿Qué quieres hacer?</h5>
 					<div class="row">
 						<div class="col-md-6">
-							<button type="submit" id="new-account-button"class="btn btn-primary totalButton">Create an Account</button>
+							<button type="submit" id="new-account-button"class="btn btn-primary totalButton">Crear una cuenta nueva</button>
 						</div>
 						<div class="col-md-6">
-							<button type="submit" id="existing-account-button" class="btn btn-primary totalButton">Join an existing Account</button>
+							<button type="submit" id="existing-account-button" class="btn btn-primary totalButton">Unirme a una cuenta ya creada</button>
 						</div>
 					</div>
 				</div>
@@ -49,76 +49,76 @@
 				<div class="card-body">
 					<form:form method="POST" id="createAccountForm" action="/addUser" modelAttribute="user" data-parsley-validate="">
 						
-						<h5>Personal Information</h5>
+						<h5>Informacion Personal </h5>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-								  <form:label path="name" for="input_name">Name</form:label>
-								  <form:input path="name" type="text" class="form-control" data-parsley-required="true" id="input_name" aria-describedby="emailHelp" placeholder="Enter Name"/>
+								  <form:label path="name" for="input_name">Nombre</form:label>
+								  <form:input path="name" type="text" class="form-control" data-parsley-required="true" id="input_name" aria-describedby="emailHelp" placeholder="Introduce tu nombre"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="surname" for="input_surname">Surname</form:label>
-								  <form:input path="surname" type="text" data-parsley-required="true" class="form-control" id="input_surname" placeholder="Surname"/>
+								  <form:label path="surname" for="input_surname">Apellidos</form:label>
+								  <form:input path="surname" type="text" data-parsley-required="true" class="form-control" id="input_surname" placeholder="Introduce tus apellidos"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="id" for="input_id">ID</form:label>
-								  <form:input path="id" type="text" data-parsley-required="true" class="form-control" id="input_id" placeholder="ID"/>
+								  <form:label path="id" for="input_id">DNI</form:label>
+								  <form:input path="id" type="text" data-parsley-required="true" class="form-control" id="input_id" placeholder="Introduce tu DNI"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="birthdate" for="input_birthdate">Birthdate</form:label>
-								  <form:input path="birthdate" type="text" data-parsley-required="true" class="form-control" id="input_birthdate" placeholder="ID"/>
+								  <form:label path="birthdate" for="input_birthdate">Fecha de nacimiento</form:label>
+								  <form:input path="birthdate" type="text" data-parsley-required="true" class="form-control" id="input_birthdate" placeholder="Formato: 1990-12-31"/>
 								</div>
 								
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-								  <form:label path="address" for="input_address">Address</form:label>
-								  <form:input path="address" type="text" class="form-control" id="input_address" placeholder="Address"/>
+								  <form:label path="address" for="input_address">Dirección</form:label>
+								  <form:input path="address" type="text" class="form-control" id="input_address" placeholder="Introduce tu dirección"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="postalCode" for="input_postal_code">Postal Code</form:label>
-								  <form:input path="postalCode" type="text" class="form-control" id="input_postal_code" placeholder="Postal Code"/>
+								  <form:label path="postalCode" for="input_postal_code">Código postal</form:label>
+								  <form:input path="postalCode" type="text" class="form-control" id="input_postal_code" placeholder="Introduce tu código postal"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="city" for="input_city">City</form:label>
-								  <form:input path="city" type="text" class="form-control" id="input_city" placeholder="City"/>
+								  <form:label path="city" for="input_city">Ciudad</form:label>
+								  <form:input path="city" type="text" class="form-control" id="input_city" placeholder="Introduce tu ciudad"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="country" for="input_country">Country</form:label>
-								  <form:input path="country" type="text" class="form-control" id="input_country" placeholder="Country"/>
+								  <form:label path="country" for="input_country">País</form:label>
+								  <form:input path="country" type="text" class="form-control" id="input_country" placeholder="Introduce tu país"/>
 								</div>
 							</div>
 						</div>
-						<h5>Account Information</h5>
+						<h5>Información de la cuenta</h5>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 								  <form:label path="email" for="input_email">Email</form:label>
-								  <form:input path="email" data-parsley-required="true" type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Enter email"/>
+								  <form:input path="email" data-parsley-required="true" type="email" class="form-control" id="input_email" aria-describedby="emailHelp" placeholder="Introduce tu email"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="password" for="input_password">Password</form:label>
+								  <form:label path="password" for="input_password">Contraseña</form:label>
 								  <form:input path="password" data-parsley-required="true" type="password" class="form-control" id="input_password" data-parsley-minlength="8" placeholder="Password"/>
 								</div>
 								<div class="form-group">
-								  <form:label path="confirmPassword" for="input_confirm_password">Confirm Password</form:label>
+								  <form:label path="confirmPassword" for="input_confirm_password">Confirma tu contraseña</form:label>
 								  <form:input path="confirmPassword" data-parsley-required="true" type="password" class="form-control" id="input_confirm_password" data-parsley-minlength="8" placeholder="Password"/>
 								</div>
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary">Aceptar</button>
 							</div>
 							<div class="col-md-6">
 								<div id="addUserToAccountDiv" class="d-none">
 									<div class="form-group">
-									  <form:label path="accountId" for="input_account_id">Introduce Account ID</form:label>
-									  <form:input path="accountId" type="text" class="form-control" id="input_account_id" aria-describedby="" placeholder="Enter Account´s ID"/>
+									  <form:label path="accountId" for="input_account_id">Tu DNI</form:label>
+									  <form:input path="accountId" type="text" class="form-control" id="input_account_id" aria-describedby="" placeholder=""/>
 									</div>
 									<div class="form-group">
-									  <form:label path="accountOwnerId" for="input_account_owner_id">Introduce ID of Account´s Owner</form:label>
-									  <form:input path="accountOwnerId" type="text" class="form-control" id="input_account_owner_id" aria-describedby="" placeholder="Enter Account´s Owner ID"/>
+									  <form:label path="accountOwnerId" for="input_account_owner_id">Identificador del dueño</form:label>
+									  <form:input path="accountOwnerId" type="text" class="form-control" id="input_account_owner_id" aria-describedby="" placeholder=""/>
 									</div>
 									<div class="form-group">
-									  <form:label path="secretPassword" for="input_secret_password">Introduce Secret Password</form:label>
-									  <form:input path="secretPassword" type="text" class="form-control" id="input_secret_password" aria-describedby="" placeholder="Enter the secret password"/>
+									  <form:label path="secretPassword" for="input_secret_password">Contraseña secreta</form:label>
+									  <form:input path="secretPassword" type="text" class="form-control" id="input_secret_password" aria-describedby="" placeholder=""/>
 									</div>
 								</div>
 							</div>

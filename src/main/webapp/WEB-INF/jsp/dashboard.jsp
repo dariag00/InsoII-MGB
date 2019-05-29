@@ -27,7 +27,17 @@
 	<%@ include file="main_navbar.jsp" %>
 	
 		<div class="container text-" id="dashboardContainer">
-			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Mostrar/Ocultar promociones</small></a>	
+			<c:if test="${not empty errorMessage}">
+				<div class="alert alert-danger" role="alert">
+ 						${errorMessage}
+				</div>
+			</c:if>
+			<c:if test="${not empty successMessage}">
+				<div class="alert alert-primary" role="alert">
+ 						${successMessage}
+				</div>
+			</c:if>
+			<a id="promotionsShow"  class="form-text text-muted" href="#"><small>Mostrar/Ocultar promociones</small></a>	
 			<div class="row promotionContainer" id="promotionContainerId">
 				<div class="col-md-4">
 					<div class="card shadow-sm">
@@ -62,24 +72,15 @@
 			</div>
 		
 		
-			<c:if test="${not empty errorMessage}">
-				<div class="alert alert-danger" role="alert">
- 						${errorMessage}
-				</div>
-			</c:if>
-			<c:if test="${not empty successMessage}">
-				<div class="alert alert-primary" role="alert">
- 						${successMessage}
-				</div>
-			</c:if>
+			
 			<div class="row summaryContainer">
 				<div class="col-md-6">
-					<h4>Saludos ${user.nombre}, aquí tienes los detalles de tu cuenta.</h4>
+					<h4>Saludos <b> ${user.nombre}, </b>aquí tienes los detalles de tu cuenta.</h4>
 				</div>
 				<div class="col-md-6">
 					<div class="dropdown">
 					  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  	QUIERO
+					  	Quiero...
 					  </button>
 					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					    <a class="dropdown-item" data-toggle="modal" data-target="#transferModal">Realizar una transferencia</a>
@@ -94,7 +95,7 @@
 				<div class="col-md-6">
 					<div class="card shadow-sm" id="accountCointainer">
 						<div class="card-body">
-							<h5 class="card-title text-primary">Your Accounts</h5>
+							<h5 class="card-title text-primary">Tus cuentas</h5>
 							<c:forEach var="account" items="${accounts}">
 								<%@ include file="account.jsp" %>
 							</c:forEach>
@@ -144,12 +145,12 @@
 	      </div>
 	      	 <form:form method="POST" id="transferForm" action="/addTransfer" modelAttribute="transfer" data-parsley-validate="">
 		      <div class="modal-body">
-					<h4>A quien le quieres enviar el dinero?</h4>
+					<h4>¿A quién quieres enviar el dinero?</h4>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-							  <form:label path="beneficiary" for="input_name">Name</form:label>
-							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="Diego Arias" data-parsley-required="true"/>
+							  <form:label path="beneficiary" for="input_name">Nombre</form:label>
+							  <form:input path="beneficiary" type="text" class="form-control" id="input_name" aria-describedby="emailHelp" placeholder="José Hernandez" data-parsley-required="true"/>
 							</div>
 							<div class="form-group">
 							  <form:label path="iban" for="input_name">IBAN</form:label>
@@ -173,7 +174,7 @@
 							    </c:forEach>
 							   </form:select>
 							 </div>
-							<h6>¿Que tipo de Transacción quieres realizar?</h6>
+							<h6>¿Qué tipo de Transacción quieres realizar?</h6>
 							<div class="form-check">
 								<form:radiobutton path="type" value="0"/> Transferencia
 							</div>
@@ -241,8 +242,8 @@
 			
 	      </div>
 	      	<div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        <button type="submit" class="btn btn-primary">Send</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-primary">Enviar</button>
 	      	</div>
 	      </form:form>
 	    </div>
@@ -281,8 +282,8 @@
 						</div>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="submit" class="btn btn-primary">Send</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+			        <button type="submit" class="btn btn-primary">Enviar</button>
 			      </div>
 		      </form:form>
 		    </div>
