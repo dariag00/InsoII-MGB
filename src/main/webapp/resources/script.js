@@ -10,4 +10,13 @@ $(document).ready(function(){
 	  $("#addUserToAccountDiv").removeClass('d-none');
 	  $("#options-container").addClass('d-none');
   });
+  
+  $("#promotionsShow").click(function(){
+	  if ( $("#promotionContainerId" ).hasClass( "d-none" ) ) {
+		  $("#promotionContainerId").removeClass('d-none');
+	  }else{
+		  $("#promotionContainerId").addClass('d-none');
+	  }
+  });
+  
 });

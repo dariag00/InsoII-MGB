@@ -18,6 +18,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.2/dist/Chart.bundle.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/parsley.js"/>"></script>
+	<script src="<c:url value="/resources/script.js"/>"></script>
 </head>
 
 
@@ -25,8 +26,9 @@
 
 	<%@ include file="main_navbar.jsp" %>
 	
-		<div class="container text-" id="dashboardContainer">		
-			<div class="row promotionContainer">
+		<div class="container text-" id="dashboardContainer">
+			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Hide/Show promotions</small></a>	
+			<div class="row promotionContainer" id="promotionContainerId">
 				<div class="col-md-4">
 					<div class="card shadow-sm">
 					 	<img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/71wTQpB99hL._SL1500_.jpg" alt="Card image cap">
