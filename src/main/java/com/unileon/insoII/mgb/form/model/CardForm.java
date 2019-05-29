@@ -12,6 +12,8 @@ public class CardForm {
 
 	private String secretPin;
 	private int idAccount;
+	private String oldPin;
+	private String confirmSecretPin;
 	
 	public int getIdAccount() {
 		return idAccount;
@@ -26,6 +28,17 @@ public class CardForm {
 	public void setSecretPin(String secretPin) {
 		this.secretPin = secretPin;
 	}
-	
+	public String getOldPin() {
+		return oldPin;
+	}
+	public void setOldPin(String oldPin) {
+		this.oldPin = oldPin;
+	}
+	public String getConfirmSecretPin() {
+		return confirmSecretPin;
+	}
+	public void setConfirmSecretPin(String confirmSecretPin) {
+		this.confirmSecretPin = confirmSecretPin;
+	}
 
 }

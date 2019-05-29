@@ -110,7 +110,7 @@ public class LoginController {
 	@RequestMapping(value={"/logOut"}, method = RequestMethod.GET)
 	public String logOut(Model model, HttpSession session) {
 		loginService.destroySession(session);
-		return "login";
+		return "redirect:login";
 	}
 	
 

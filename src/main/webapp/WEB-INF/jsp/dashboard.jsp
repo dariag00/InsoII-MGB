@@ -27,7 +27,7 @@
 	<%@ include file="main_navbar.jsp" %>
 	
 		<div class="container text-" id="dashboardContainer">
-			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Hide/Show promotions</small></a>	
+			<a id="promotionsShow" class="form-text text-muted" href="#"><small>Mostrar/Ocultar promociones</small></a>	
 			<div class="row promotionContainer" id="promotionContainerId">
 				<div class="col-md-4">
 					<div class="card shadow-sm">
@@ -220,7 +220,12 @@
 						   <form:label path="cardId" for="exampleFormControlSelect1">Selecciona una de tus tarjetas</form:label>
 						   <form:select path="cardId" class="form-control" id="exampleFormControlSelect1">
 						   	<c:forEach var="card" items="${cards}">
-						     <option value="${card.id}">${card.getFormattedCardNumber()} (${card.getAccount().balance}€) </option>
+						   	 <c:if test="${card.status == 0}">
+						    	<option value="${card.id}">${card.getFormattedCardNumber()} (${card.getAccount().balance}€) </option>
+						     </c:if>
+						     <c:if test="${card.status == 1}">
+						    	<option value="${card.id}" disabled>${card.getFormattedCardNumber()} (${card.getAccount().balance}€) INACTIVE</option>
+						     </c:if>
 						    </c:forEach>
 						   </form:select>
 						 </div>

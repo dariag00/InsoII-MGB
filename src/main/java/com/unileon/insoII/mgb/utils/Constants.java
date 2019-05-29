@@ -28,13 +28,17 @@ public class Constants {
 	public final static int CARD_ERROR1=0;
 
 	public static final int OPERATION_OK = 0;
-	public static final int OPERATION_IBAN_NOT_ENOUGH_FUNDS = 1;
-	public static final int OPERATION_ERROR = 1;
+	public static final int OPERATION_IBAN_NOT_ENOUGH_FUNDS = -1;
+	public static final int OPERATION_ERROR = -2;
 	public static final int TRANSFER_TYPE_ERROR = -1;
 	public final static int CREATE_ACCOUNT_OK = 0;
 	public final static int CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID = -1;
 	public final static int CREATE_ACCOUNT_INCORRECT_PASSWORD = -2;
 	public final static int CREATE_ACCOUNT_PASSWORDS_NO_MATCH = -3;
 	public final static int CREATE_ACCOUNT_UNKNOWN_ERROR = -99;
+	
+	public final static int CHANGE_PIN_OK = 0;
+	public final static int CHANGE_PIN_INVALID_PIN = -1;
+	public final static int CHANGE_PIN_DO_NOT_MATCH= -2;
 	
 }

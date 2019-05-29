@@ -115,7 +115,7 @@ public class Card implements Serializable{
 		
 		Random rand = new Random();
 		
-		for (int i = 0; i < 14; i++){
+		for (int i = 0; i < 16; i++){
 	        int n = rand.nextInt(10) + 0;
 	        cardNumber += Integer.toString(n);
 	    }
@@ -185,6 +185,16 @@ public class Card implements Serializable{
 	    }
 		
 		return formattedCardNumber.toString();
+	}
+	
+	public String getStringStatus() {
+		
+		if(this.status == Constants.CARD_STATUS_ACTIVE)
+			return "Active";
+		else if(this.status == Constants.CARD_STATUS_INACTIVE)
+			return "Inactive";
+		else
+			return "";
 	}
 
 }
