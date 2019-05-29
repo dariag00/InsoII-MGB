@@ -12,12 +12,19 @@ public class UserForm {
 	private String country;
 	private String email;
 	private String password;
+	private String oldPassword;
 	private String confirmPassword;
 	private String accountId;
 	private String accountOwnerId;
 	private String secretPassword;
 	
 	
+	public String getOldPassword() {
+		return oldPassword;
+	}
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 	public String getName() {
 		return name;
 	}

@@ -39,6 +39,12 @@ public class Constants {
 	public final static int CREATE_ACCOUNT_DNI_ALREADY_EXISTS = -4;
 	public final static int CREATE_ACCOUNT_EMAIL_ALREADY_EXISTS = -5;
 	public final static int CREATE_ACCOUNT_UNKNOWN_ERROR = -99;
+	public static final int EDIT_ACCOUNT_OK = 0;
+	public static final int EDIT_USER_OK = 0;
+	public static final int EDIT_PASSWORD_EMPTY_OLD = -1;
+	public static final int EDIT_PASSWORD_NOT_MATCH = -2;
+	public static final int EDIT_PASSWORD_OLD_INCORRECT = -3;
+	public static final int EDIT_PASSWORD_EMPTY = -4;
 	
 	public final static int CHANGE_PIN_OK = 0;
 	public final static int CHANGE_PIN_INVALID_PIN = -1;
