@@ -30,6 +30,16 @@
 		
 			<div class="row summaryContainer">
 				<div class="col-md-8">
+					<c:if test="${not empty errorMessage}">
+						<div class="alert alert-danger" role="alert">
+		 						${errorMessage}
+						</div>
+					</c:if>
+					<c:if test="${not empty successMessage}">
+						<div class="alert alert-primary" role="alert">
+		 						${successMessage}
+						</div>
+					</c:if>
 					<h4>Greeting ${user.nombre}, hereby you can find the details of your card.</h4>
 				</div>
 			</div>
@@ -107,8 +117,9 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
+	      <form:form method="POST" id="changePinForm" action="/changePin?cardId=${card.id}" modelAttribute="cardForm" data-parsley-validate="">
 	      <div class="modal-body">
-	      	<form:form method="POST" id="changePinForm" action="/changePin" modelAttribute="cardForm" data-parsley-validate="">
+
     			<div class="form-group">
 				  <form:label path="oldPin" for="input_old_pin">Old PIN</form:label>
 				  <form:input path="oldPin" type="password" class="form-control" id="input_old_pin" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
@@ -121,12 +132,12 @@
 				  <form:label path="confirmSecretPin" for="input_new_pin_confirm">Confirm New PIN</form:label>
 				  <form:input path="confirmSecretPin" type="password" class="form-control" id="input_new_pin_confirm" aria-describedby="emailHelp" placeholder="0000" data-parsley-type="number" data-parsley-min="0" data-parsley-max="9999" data-parsley-required="true"/>
 				</div>
-	       </form:form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <a class="btn btn-primary anchorBs" href="/changePin?cardId=${card.id}">Save</a>
+	        <button type="submit" class="btn btn-primary">Change</button>
 	      </div>
+	     </form:form>
 	    </div>
 	  </div>
 	</div>
@@ -141,7 +152,7 @@
 	          <span aria-hidden="true">&times;</span>
 	        </button>
 	      </div>
-      	  <form:form method="POST" id="operationForm" action="/addOperation" modelAttribute="newOperation" data-parsley-validate="">
+      	  <form:form method="POST" id="operationForm" action="/addOperationFromCard" modelAttribute="newOperation" data-parsley-validate="">
 	      	<div class="modal-body">
 				<h4>Concreta los detalles de la operación</h4>
 				<div class="row">

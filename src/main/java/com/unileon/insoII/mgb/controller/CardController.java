@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.unileon.insoII.mgb.form.model.CardForm;
 import com.unileon.insoII.mgb.form.model.OperationForm;
@@ -23,12 +24,16 @@ import com.unileon.insoII.mgb.model.Operation;
 import com.unileon.insoII.mgb.model.Transaction;
 import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.service.CardService;
+import com.unileon.insoII.mgb.service.OperationService;
+import com.unileon.insoII.mgb.utils.Constants;
 
 @Controller
 public class CardController {
 	
 	@Autowired
 	CardService cardService;
+	@Autowired
+	OperationService operationService;
 	
 	@RequestMapping(value= {"/cardDetail"}, method = RequestMethod.GET)
 	public String showCardDetail(ModelMap model, @RequestParam int cardId, HttpSession session) {
@@ -71,14 +76,53 @@ public class CardController {
 		return null;
 	}
 	
-	@RequestMapping(value= {"/changePin"}, method = RequestMethod.GET)
-	public String changePin(ModelMap model, @RequestParam int cardId, HttpSession session, @ModelAttribute("cardForm") CardForm cardForm, BindingResult bindingResult) {
+	@RequestMapping(value= {"/changePin"}, method = RequestMethod.POST)
+	public String changePin(ModelMap model, @RequestParam int cardId, HttpSession session, @ModelAttribute("cardForm") CardForm cardForm, BindingResult bindingResult, RedirectAttributes redir) {
 		
 		if(!bindingResult.hasErrors()) {
 			
+			User user = (User) session.getAttribute("user");
+			if(user==null) {
+				redir.addFlashAttribute("errorMessage", "User is not logged in / User lost");
+				return "redirect:login";			
+			}
+			
+			int result = cardService.changePin(cardForm, cardId);
+			
+			if(result == Constants.CHANGE_PIN_OK) {
+				redir.addFlashAttribute("successMessage","The card PIN has been changed succesfully");
+			}else if(result == Constants.CHANGE_PIN_DO_NOT_MATCH) {
+				redir.addFlashAttribute("errorMessage","The new PINs do not match");
+			}else if(result == Constants.CHANGE_PIN_INVALID_PIN) {
+				redir.addFlashAttribute("errorMessage","The old PIN do not match with the current PIN");
+			}
+			
 		}
 		
-		return "card_detail";
+		return "redirect:cardDetail?cardId="+cardId;
+	}
+	
+	@RequestMapping(value="/addOperationFromCard", method=RequestMethod.POST)
+	public String addOperationFromCard(@ModelAttribute("newOperation") OperationForm operationForm, BindingResult bindingResult, ModelMap model,  RedirectAttributes redir, HttpSession session,Card card) {
+		
+		if (!bindingResult.hasErrors()) {
+			System.out.println("Entro");
+			
+			int result = operationService.createOperation(operationForm);
+			System.out.println("Result: " + result);
+			
+			if(result == Constants.OPERATION_OK)
+				redir.addFlashAttribute("successMessage", "Operation done successfuly");
+			if(result == Constants.OPERATION_IBAN_NOT_ENOUGH_FUNDS)
+				redir.addFlashAttribute("errorMessage","We cant make the transfer because there are not enough funds in the selected account.");
+			if(result == Constants.OPERATION_ERROR)
+				redir.addFlashAttribute("errorMessage","SOMETHING WENT WRONG");
+			
+			//redir.addFlashAttribute("errorMessage","We cant make the transfer because there are not enough funds.");
+			
+			return "redirect:cardDetail?cardId="+operationForm.getCardId();
+		}
+		return "redirect:dashboard";
 	}
 	
 

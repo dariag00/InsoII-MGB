@@ -115,7 +115,7 @@ public class Card implements Serializable{
 		
 		Random rand = new Random();
 		
-		for (int i = 0; i < 14; i++){
+		for (int i = 0; i < 16; i++){
 	        int n = rand.nextInt(10) + 0;
 	        cardNumber += Integer.toString(n);
 	    }

@@ -37,4 +37,8 @@ public class Constants {
 	public final static int CREATE_ACCOUNT_PASSWORDS_NO_MATCH = -3;
 	public final static int CREATE_ACCOUNT_UNKNOWN_ERROR = -99;
 	
+	public final static int CHANGE_PIN_OK = 0;
+	public final static int CHANGE_PIN_INVALID_PIN = -1;
+	public final static int CHANGE_PIN_DO_NOT_MATCH= -2;
+	
 }
