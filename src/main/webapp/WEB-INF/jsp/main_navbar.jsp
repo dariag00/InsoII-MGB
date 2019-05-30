@@ -18,6 +18,6 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
 	  
     </ul>
     <a class="btn btn-success" href="/profile" style="margin-right: 10px"> Cuenta </a>
-    <a class="btn btn-danger" href="/logOut">Log out</a>
+    <a class="btn btn-danger" href="/logOut">Cerrar Sesión</a>
   </div>
 </nav>
