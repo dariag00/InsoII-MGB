@@ -65,9 +65,12 @@
 								</div>
 								<div class="col-md-6">
 									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#transferModal">Realizar una transferencia</button>
-									<button class="btn btn-primary accountButton" type="button" aria-haspopup="true" aria-expanded="false">Gestionar Usuarios</button>
-									<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#inviteUser">Invite an User</button>
-									<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#deleteAccountModal">Dar de baja</button>
+									<c:if test="${user.getRoleByAccount(account) == 1}">
+										<button class="btn btn-primary accountButton" data-toggle="modal" data-target="#inviteUser">Invitar un usuario</button>
+									</c:if>
+									<c:if test="${user.getRoleByAccount(account) == 1}">
+										<button class="btn btn-danger accountButton" data-toggle="modal" data-target="#deleteAccountModal">Dar de baja</button>
+									</c:if>
 								</div>
 							</div>
 						</div>

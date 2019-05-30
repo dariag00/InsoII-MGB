@@ -82,15 +82,6 @@ public class AccountService {
 		
 		accountRepository.delete(account);
 		
-		/*for(Card card:account.getCards()) {
-			//Borrar movimientos
-			account.getCards().remove(card);
-			card.getUser().getCards().remove(card);
-			System.out.println("Id:" + card.getId());
-			
-			cardRepository.delete(card);
-		}*/
-		
 	}
 	
 	public Account getAccountById(int id) {
@@ -135,14 +126,11 @@ public class AccountService {
 	
 	public int associateUserToAccount(User user, UserForm userForm) {
 		
-		
-		Account account;
-		
 		Optional<Account> accountL =  accountRepository.findById(Integer.valueOf(userForm.getAccountId()));
 		if(accountL == null || !accountL.isPresent())
 			return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
 			
-		account = accountL.get();
+		Account account = accountL.get();
 		
 		if(account == null)
 			return Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID;
@@ -173,7 +161,6 @@ public class AccountService {
 				ac.setRoleId(Constants.ROLE_ACCOUNT_USER);
 				uacRepository.save(ac);
 			}
-			
 			
 			Transaction transaction = new Transaction();
 			transaction.setBeneficiary(user.getFullName());

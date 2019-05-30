@@ -131,6 +131,16 @@ public class User implements Serializable{
 		this.firstLogin = firstLogin;
 	}
 	
+	public int getRoleByAccount(Account ac) {
+		for(UserAccount uac : accounts) {
+			if(uac.getAccount().getId() == ac.getId())
+				return uac.getRoleId();
+		}
+		
+		return -1;
+		
+	}
+	
 	public List<Transaction> getAllTransactions(){
 		
 		List<Account> accounts = this.getListOfAccounts();

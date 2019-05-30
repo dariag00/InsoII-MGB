@@ -63,6 +63,7 @@ public class AccountController {
 		model.put("transactions", transactions);
 		
 		model.addAttribute("transfer", new TransactionForm());
+		model.addAttribute("user", user);
 		
 		return "account_detail";
 	}
