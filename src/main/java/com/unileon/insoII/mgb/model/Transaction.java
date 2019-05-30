@@ -103,6 +103,20 @@ public class Transaction {
 		return day + "/" + month + "/" + year + " " + hour + ":" + minute;
 	}
 	
+public String getShortDate() {
+		
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+		cal.setTime(this.transactionDate);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		int hour = cal.get(Calendar.HOUR);
+		int minute = cal.get(Calendar.MINUTE);
+		System.out.println("");
+		
+		return day + "/" + month;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

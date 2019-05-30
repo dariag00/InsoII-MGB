@@ -365,8 +365,104 @@
 		$('#associateForm').parsley();
 	</script>
 	
-	<script src="<c:url value="/resources/accountChart.js"/>"></script>
-	<script src="<c:url value="/resources/moneyChart.js"/>"></script>
+	<script type="text/javascript">
+		var pieChart = document.getElementById("accountsChart");
+	
+		Chart.defaults.global.defaultFontFamily = "Lato";
+		Chart.defaults.global.defaultFontSize = 18;
+		
+		
+		var poolColors = function (a) {
+	        var pool = [];
+	        for(i=0;i<a;i++){
+	            pool.push(dynamicColors());
+	        }
+	        return pool;
+	    }
+	
+	    var dynamicColors = function() {
+	        var r = Math.floor(Math.random() * 255);
+	        var g = Math.floor(Math.random() * 255);
+	        var b = Math.floor(Math.random() * 255);
+	        return "rgb(" + r + "," + g + "," + b + ")";
+	    }
+		
+	
+		var accountData = {
+				 labels: ${valueNames},
+		    datasets: [
+		        {
+		            data: ${values},
+		            backgroundColor: poolColors( ${valueNames.size()})
+		        }]
+		
+		};
+	
+		var pieChart = new Chart(pieChart, {
+		  type: 'pie',
+		  data: accountData
+		});
+		
+		
+		function getRandomColor() {
+		    var letters = '0123456789ABCDEF'.split('');
+		    var color = '#';
+		    for (var i = 0; i < 6; i++ ) {
+		        color += letters[Math.floor(Math.random() * 16)];
+		    }
+		    return color;
+		}
+	
+	</script>
+	
+	<script type="text/javascript">
+	
+	var speedCanvas = document.getElementById("moneyChart");
+
+	Chart.defaults.global.defaultFontFamily = "Lato";
+	Chart.defaults.global.defaultFontSize = 18;
+
+	var dataFirst = {
+		    label: "Transacciones realizadas (€)",
+		    data: ${transferValues},
+		    lineTension: 0.3,
+		    fill: false,
+		    borderColor: '#007bff',
+		    backgroundColor: 'transparent',
+		    pointBorderColor: '#007bff',
+		    pointBackgroundColor: 'lightblue',
+		    pointRadius: 5,
+		    pointHoverRadius: 15,
+		    pointHitRadius: 30,
+		    pointBorderWidth: 2,
+		    pointStyle: 'rect'
+		  };
+
+
+	var speedData = {
+			  labels: ${transferDates},
+			  datasets: [dataFirst]
+			};
+
+
+	var chartOptions = {
+			  legend: {
+			    display: true,
+			    position: 'top',
+			    labels: {
+			      boxWidth: 80,
+			      fontColor: 'black'
+			    }
+			  }
+			};
+
+	var lineChart = new Chart(speedCanvas, {
+		  type: 'line',
+		  data: speedData
+		});
+	
+	</script>
+
 </body>
 
 </html>

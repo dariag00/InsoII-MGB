@@ -1,5 +1,6 @@
 package com.unileon.insoII.mgb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -105,6 +106,40 @@ public class DashboardController {
 		model.addAttribute("newCard", new CardForm());
 		model.addAttribute("newOperation", new OperationForm());
 		model.addAttribute("userForm", new UserForm());
+		
+		
+		List<Double> values = new ArrayList<>();
+		for(Account ac: accountList) {
+			values.add(ac.getBalance());
+		}
+		
+		model.addAttribute("values", values);
+		
+		List<String> valueNames = new ArrayList<>();
+		
+		for(int i=0; i<accountList.size(); i++) {
+			int value = i +1;
+			valueNames.add("'Cuenta " + value + "'");
+		}
+		
+		model.addAttribute("valueNames", valueNames);
+		
+		
+		List<Double> transferValues = new ArrayList<>();
+		for(Transaction ac: transactions) {
+			transferValues.add(ac.getValue());
+		}
+		
+		model.addAttribute("transferValues", transferValues);
+		
+		List<String> trasnferDates = new ArrayList<>();
+		for(Transaction ac: transactions) {
+			trasnferDates.add("'" + ac.getShortDate().toString() + "'");
+		}
+		
+		model.addAttribute("transferDates", trasnferDates);
+		
+		
 		/*model.addAttribute("successMessage", "Transfer done succesfuly");
 		model.addAttribute("errorMessage", "No hay suficientes fondos.");*/
 		
