@@ -38,37 +38,39 @@
 				</div>
 			</c:if>
 			<a id="promotionsShow"  class="form-text text-muted" href="#"><small>Mostrar/Ocultar promociones</small></a>	
-			<div class="row promotionContainer" id="promotionContainerId">
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-					 	<img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/71wTQpB99hL._SL1500_.jpg" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Consigue tu juego de cazuelas</h5>
-					    	<p class="card-text">Entra en el sorteo de este increible juego de cazuelas marca Velaze</p>
-					    	<a href="https://www.facebook.com/notes/farmacia-carol/gana-un-juego-de-ollas-royal-prestige/514748305208392/" class="btn btn-primary">Más info</a>
-					  	</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-						<img class="card-img-top" src="https://static.fnac-static.com/multimedia/Images/ES/NR/fe/27/46/4597758/1505-1.jpg" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Regalamos una Smart TV</h5>
-					    	<p class="card-text">Invita a un amigo para conseguir tu propia SmartTV! (Promoción válida hasta fin de existencias)</p>
-					    	<a href="https://www.fnac.es/TV-QLED-85-Samsung-QE85Q900R-8K-IA-HDR-4000-TV-TV-LED/a5984667" class="btn btn-primary">Más info</a>
-					  	</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card shadow-sm">
-						<img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="Card image cap">
-					 	<div class="card-body">
-					    	<h5 class="card-title">Viaja a Marte</h5>
-					    	<p class="card-text">MGB te ofrece de forma gratuita un viaje a Marte en colaboración con la Nasa. ¡Rellena este formulario y podrás viajar al planeta rojo en 2020! </p>
-					    	<a href="https://mars.nasa.gov/participate/send-your-name/mars2020" class="btn btn-primary">Más info</a>
-					  	</div>
-					</div>
-				</div>
+	
+			
+			<div class="card-deck promotionContainer" id="promotionContainerId">
+			  <div class="card">
+			    <img class="card-img-top img-fluid" src="https://images-na.ssl-images-amazon.com/images/I/71wTQpB99hL._SL1500_.jpg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Consigue tu juego de cazuelas</h5>
+			      <p class="card-text">Entra en el sorteo de este increible juego de cazuelas marca Velaze</p>
+			    </div>
+			    <div class="card-footer">
+			      <a href="https://www.facebook.com/notes/farmacia-carol/gana-un-juego-de-ollas-royal-prestige/514748305208392/" class="btn btn-primary">Más info</a>
+			    </div>
+			  </div>
+			  <div class="card">
+			  	<img class="card-img-top img-fluid" src="https://static.fnac-static.com/multimedia/Images/ES/NR/fe/27/46/4597758/1505-1.jpg" alt="Card image cap">
+			    <div class="card-body">
+			      <h5 class="card-title">Regalamos una Smart TV</h5>
+				  <p class="card-text">Invita a un amigo para conseguir tu propia SmartTV! (Promoción válida hasta fin de existencias)</p>
+			    </div>
+			    <div class="card-footer">
+			     <a href="https://www.fnac.es/TV-QLED-85-Samsung-QE85Q900R-8K-IA-HDR-4000-TV-TV-LED/a5984667" class="btn btn-primary">Más info</a>
+			    </div>
+			  </div>
+			  <div class="card">
+			    <img class="card-img-top img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png" alt="Card image cap">
+			    <div class="card-body">
+			    	<h5 class="card-title">Viaja a Marte</h5>
+					<p class="card-text">MGB te ofrece de forma gratuita un viaje a Marte en colaboración con la Nasa. ¡Rellena este formulario y podrás viajar al planeta rojo en 2020! </p>
+			    </div>
+			    <div class="card-footer">
+			      <a href="https://mars.nasa.gov/participate/send-your-name/mars2020" class="btn btn-primary">Más info</a>
+			    </div>
+			  </div>
 			</div>
 		
 		

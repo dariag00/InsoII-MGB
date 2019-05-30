@@ -70,6 +70,10 @@ hr.loginSeparator{
 	margin-left:10px;
 }
 
+.imgSize{
+	max-height: 400px;
+}
+
 .cardDataContainer{
 	padding-top: 10px;
 }
