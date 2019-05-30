@@ -27,6 +27,7 @@ import com.unileon.insoII.mgb.model.User;
 import com.unileon.insoII.mgb.service.LoginService;
 import com.unileon.insoII.mgb.service.OperationService;
 import com.unileon.insoII.mgb.service.TransferService;
+import com.unileon.insoII.mgb.service.AccountService;
 import com.unileon.insoII.mgb.service.CardService;
 import com.unileon.insoII.mgb.service.UserService;
 import com.unileon.insoII.mgb.utils.Constants;
@@ -38,6 +39,8 @@ public class DashboardController {
 	UserService userService;
 	@Autowired
 	LoginService loginService;
+	@Autowired
+	AccountService accountService;
 
 	@Autowired
 	TransferService transferService;
@@ -101,11 +104,13 @@ public class DashboardController {
 		model.addAttribute("transfer", new TransactionForm());
 		model.addAttribute("newCard", new CardForm());
 		model.addAttribute("newOperation", new OperationForm());
+		model.addAttribute("userForm", new UserForm());
 		/*model.addAttribute("successMessage", "Transfer done succesfuly");
 		model.addAttribute("errorMessage", "No hay suficientes fondos.");*/
 		
 		return "dashboard";
 	}
+	
 	@RequestMapping(value="/addCard", method=RequestMethod.POST)
 	public String addCard(@ModelAttribute("newCard") CardForm cardForm, BindingResult bindingResult, ModelMap model, RedirectAttributes redir, HttpSession session) {
 		if(!bindingResult.hasErrors()) {
@@ -126,6 +131,60 @@ public class DashboardController {
 			return "redirect:dashboard";
 		}
 		System.out.println("No-Entro");
+		return "redirect:dashboard";
+	}
+
+	@RequestMapping(value="/asociateAccountFromDashboard", method=RequestMethod.POST)
+	public String associateUserToAccount(@ModelAttribute("userForm") UserForm userForm, BindingResult bindingResult, ModelMap model,  RedirectAttributes redir,  HttpSession session) {
+		
+		
+		if(!bindingResult.hasErrors()) {
+			
+			User user = (User) session.getAttribute("user");
+			if(user==null) {
+				redir.addFlashAttribute("errorMessage", "User is not logged in / User lost");
+				return "redirect:login";			
+			}
+			
+			int result = accountService.associateUserToAccount(user, userForm);
+			
+			if(result == Constants.CREATE_ACCOUNT_OK) {
+				redir.addFlashAttribute("successMessage", "El usuario se ha asociado correctamente a la cuenta.");
+				return "redirect:dashboard";
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_PASSWORD){
+				redir.addFlashAttribute("errorMessage", "La contraseña secreta para unirte a una cuenta es incorrecta");
+				return "redirect:dashboard";
+			}else if (result == Constants.CREATE_ACCOUNT_INCORRECT_ACCOUNT_ID){
+				redir.addFlashAttribute("errorMessage", "El ID del dueño de la cuenta es incorrecto");
+				return "redirect:dashboard";
+			}else {
+				redir.addFlashAttribute("errorMessage", "Error desconocido al asociarte a la cuenta");
+				return "redirect:dashboard";
+			}
+			
+			
+		}
+		
+		return "redirect:dashboard";
+	}
+	
+	@RequestMapping(value="/createAccountFromDashboard", method=RequestMethod.GET)
+	public String associateUserToAccount(ModelMap model,  RedirectAttributes redir,  HttpSession session) {
+		
+		
+		User user = (User) session.getAttribute("user");
+		if(user==null) {
+			redir.addFlashAttribute("errorMessage", "User is not logged in / User lost");
+			return "redirect:login";			
+		}
+		
+		int result = accountService.createAccount(user);
+		
+		if(result == Constants.CREATE_ACCOUNT_OK) {
+			redir.addFlashAttribute("successMessage", "Se ha creado correctamente la cuenta.");
+			return "redirect:dashboard";
+		}
+			
 		return "redirect:dashboard";
 	}
 

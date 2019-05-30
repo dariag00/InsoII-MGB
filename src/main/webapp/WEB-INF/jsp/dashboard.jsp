@@ -19,6 +19,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="<c:url value="/resources/parsley.js"/>"></script>
 	<script src="<c:url value="/resources/script.js"/>"></script>
+	<script src="<c:url value="/resources/es.js"/>"></script>
 </head>
 
 
@@ -88,7 +89,9 @@
 					    <a class="dropdown-item" data-toggle="modal" data-target="#transferModal">Realizar una transferencia</a>
 					    <a class="dropdown-item" data-toggle="modal" data-target="#operationModal">Realizar una operación</a>
 					    <a class="dropdown-item" data-toggle="modal" data-target="#addCardModal">Contratar una tarjeta de crédito</a>
-					  	</div>
+					    <a class="dropdown-item" data-toggle="modal" data-target="#createAccount">Contratar una cuenta nueva</a>
+					    <a class="dropdown-item" data-toggle="modal" data-target="#asociarCuentaModal">Asociarme a una cuenta</a>
+					  </div>
 					</div>
 				</div>
 			</div>
@@ -107,7 +110,7 @@
 				<div class="col-md-6">
 					<div class="card shadow-sm" id="cardsContainer">
 						<div class="card-body">
-							<h5 class="card-title text-primary">Your Cards</h5>
+							<h5 class="card-title text-primary">Tus Tarjetas</h5>
 							<c:forEach var="card" items="${cards}">
 								<%@ include file="card.jsp" %>
 							</c:forEach>
@@ -293,12 +296,75 @@
 	</div>
 	
 	
+	<div class="modal fade" id="createAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Contratar Cuenta</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	       <p>¿Estás seguro de que quieres contratar una cuenta?</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	        <a class="btn btn-primary anchorBs" href="/createAccountFromDashboard">Crear</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="asociarCuentaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Asociarse a una cuenta nueva</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+      	  <form:form method="POST" id="associateForm" action="/asociateAccountFromDashboard" modelAttribute="userForm" data-parsley-validate="">
+	      	<div class="modal-body">
+				<h4>Información de la cuenta</h4>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+						  <form:label path="accountId" for="input_account_id">Identificador de la Cuenta</form:label>
+						  <form:input path="accountId" type="text" class="form-control" id="input_account_id" aria-describedby="" placeholder="" data-parsley-required="true" data-parsley-type="number"/>
+						</div>
+						<div class="form-group">
+						  <form:label path="accountOwnerId" for="input_account_owner_id">Identificador del dueño</form:label>
+						  <form:input path="accountOwnerId" type="text" class="form-control" id="input_account_owner_id" aria-describedby="" placeholder="" data-parsley-required="true" data-parsley-type="number"/>
+						</div>
+						<div class="form-group">
+						  <form:label path="secretPassword" for="input_secret_password">Contraseña secreta</form:label>
+						  <form:input path="secretPassword" type="text" class="form-control" id="input_secret_password" aria-describedby="" placeholder="" data-parsley-required="true"/>
+						</div>
+					</div>
+				</div>
+			
+	      </div>
+	      	<div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-primary">Enviar</button>
+	      	</div>
+	      </form:form>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
 	
 	<script type="text/javascript">
 		$('#transferForm').parsley();
 		$('#addCardForm').parsley();
 		$('#operationForm').parsley();
+		$('#associateForm').parsley();
 	</script>
+	
 	<script src="<c:url value="/resources/accountChart.js"/>"></script>
 	<script src="<c:url value="/resources/moneyChart.js"/>"></script>
 </body>

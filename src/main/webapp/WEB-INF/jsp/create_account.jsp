@@ -109,7 +109,7 @@
 							<div class="col-md-6">
 								<div id="addUserToAccountDiv" class="d-none">
 									<div class="form-group">
-									  <form:label path="accountId" for="input_account_id">Tu DNI</form:label>
+									  <form:label path="accountId" for="input_account_id">Identificador de la Cuenta</form:label>
 									  <form:input path="accountId" type="text" class="form-control" id="input_account_id" aria-describedby="" placeholder=""/>
 									</div>
 									<div class="form-group">
