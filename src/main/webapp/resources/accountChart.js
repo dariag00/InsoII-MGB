@@ -4,14 +4,10 @@ Chart.defaults.global.defaultFontFamily = "Lato";
 Chart.defaults.global.defaultFontSize = 18;
 
 var oilData = {
-    labels: [
-        "Account 1",
-        "Account 2",
-        "Account 3",
-    ],
+    labels: "${values}",
     datasets: [
         {
-            data: [133.3, 86.2, 52.2],
+            data: "${values}",
             backgroundColor: [
                 "#4286f4",
                 "#f4e841",
